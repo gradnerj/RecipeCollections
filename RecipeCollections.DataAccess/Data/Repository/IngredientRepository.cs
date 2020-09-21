@@ -1,6 +1,8 @@
 ﻿using RecipeCollections.Data;
 using RecipeCollections.DataAccess.Data.Repository.IRepository;
 using RecipeCollections.Models.Models;
+using System.Collections.Generic;
+using System.Web.Mvc;
 
 namespace RecipeCollections.DataAccess.Data.Repository {
     public class IngredientRepository : Repository<Ingredient>, IIngredientRepository {
@@ -8,6 +10,14 @@ namespace RecipeCollections.DataAccess.Data.Repository {
 
         public IngredientRepository(ApplicationDbContext context) : base(context) {
             _context = context;
+        }
+
+        public IEnumerable<SelectListItem> GetIngredientList() {
+            throw new System.NotImplementedException();
+        }
+
+        public void Update(Ingredient ingredient) {
+            throw new System.NotImplementedException();
         }
     }
 }
