@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using RecipeCollections.Models.Models;
 
 namespace RecipeCollections.Data
 {
@@ -9,5 +10,13 @@ namespace RecipeCollections.Data
             : base(options)
         {
         }
+
+        public DbSet<Creator> Creators { get; set; }
+        public DbSet<Recipe> Recipes { get; set; }
+        public DbSet<Step> Steps { get; set; }
+        public DbSet<Ingredient> Ingredients { get; set; }
+        public DbSet<Utensil> Utensils { get; set; }
+        public DbSet<Review> Reviews { get; set; }
+
     }
 }
