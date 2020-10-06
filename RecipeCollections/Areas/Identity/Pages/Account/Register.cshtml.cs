@@ -100,13 +100,13 @@ namespace RecipeCollections.Areas.Identity.Pages.Account
                 //add the roles to the ASPNET Roles table if they do not exist yet
                 if (!await _roleManager.RoleExistsAsync(StaticDetails.AdminRole)) {
                     _roleManager.CreateAsync(new IdentityRole(StaticDetails.AdminRole)).GetAwaiter().GetResult();
-                    _roleManager.CreateAsync(new IdentityRole(StaticDetails.UserRole)).GetAwaiter().GetResult();
+                    _roleManager.CreateAsync(new IdentityRole(StaticDetails.CreatorRole)).GetAwaiter().GetResult();
                 }
                 if (result.Succeeded)
                 //assign role to the user (from the form radio options available after the first manager is created)
                 {
-                    if (role == StaticDetails.UserRole) {
-                        await _userManager.AddToRoleAsync(user, StaticDetails.UserRole);
+                    if (role == StaticDetails.CreatorRole) {
+                        await _userManager.AddToRoleAsync(user, StaticDetails.CreatorRole);
                     } else {
                         if (role == StaticDetails.AdminRole) {
                             await _userManager.AddToRoleAsync(user, StaticDetails.AdminRole);

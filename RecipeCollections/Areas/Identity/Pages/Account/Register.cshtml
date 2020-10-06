@@ -55,7 +55,7 @@
                         </div>
                         @if (User.IsInRole(StaticDetails.AdminRole)) {
                             <div class="py-2">
-                                <input type="radio" name="rdUserRole" value="@StaticDetails.UserRole" /> @StaticDetails.UserRole
+                                <input type="radio" name="rdUserRole" value="@StaticDetails.CreatorRole" /> @StaticDetails.CreatorRole
                                 <input type="radio" name="rdUserRole" value="@StaticDetails.AdminRole" /> @StaticDetails.AdminRole
                             </div>
                         }
