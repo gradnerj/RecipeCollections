@@ -7,7 +7,8 @@ using RecipeCollections.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-
+using Microsoft.AspNetCore.Identity.UI.Services;
+using RecipeCollections.Utility;
 namespace RecipeCollections {
     public class Startup
     {
@@ -26,9 +27,7 @@ namespace RecipeCollections {
                     Configuration.GetConnectionString("DefaultConnection")));
             //services.AddDefaultIdentity<IdentityUser>()
             //    .AddEntityFrameworkStores<ApplicationDbContext>();
-            services.AddIdentity<IdentityUser, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = true)
-               .AddDefaultTokenProviders()
-               .AddEntityFrameworkStores<ApplicationDbContext>();
+            
 
             services.AddRazorPages();
             services.AddMvc(options => options.EnableEndpointRouting = false);
@@ -49,6 +48,9 @@ namespace RecipeCollections {
                 "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+";
                 options.User.RequireUniqueEmail = false;
             });
+            services.AddTransient<IEmailSender, EmailSender>();
+            services.Configure<AuthSenderOptions>(Configuration);
+
             services.ConfigureApplicationCookie(options => {
                 // Cookie settings
                 options.Cookie.HttpOnly = true;
@@ -57,7 +59,9 @@ namespace RecipeCollections {
                 options.AccessDeniedPath = "/Identity/Account/AccessDenied";
                 options.SlidingExpiration = true;
             });
-           
+            services.AddIdentity<IdentityUser, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = true)
+                .AddDefaultTokenProviders()
+                .AddEntityFrameworkStores<ApplicationDbContext>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -1,6 +1,6 @@
 ﻿using RecipeCollections.Data;
 using RecipeCollections.DataAccess.Data.Repository.IRepository;
-using RecipeCollections.Models.Models;
+using RecipeCollections.Models;
 using System.Collections.Generic;
 using System.Web.Mvc;
 

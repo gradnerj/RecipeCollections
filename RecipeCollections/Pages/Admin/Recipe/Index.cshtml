@@ -1,0 +1,73 @@
+﻿@page
+@model RecipeCollections.Pages.Admin.Recipe.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Recipe[0].CreatorId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Recipe[0].Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Recipe[0].Category)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Recipe[0].PrepTime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Recipe[0].CookTime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Recipe[0].FeedsQty)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Recipe[0].PhotoPath)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Recipe) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.CreatorId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Category)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PrepTime)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CookTime)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FeedsQty)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PhotoPath)
+            </td>
+            <td>
+                <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

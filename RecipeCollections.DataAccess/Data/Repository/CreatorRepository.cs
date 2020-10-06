@@ -1,6 +1,6 @@
 ﻿using RecipeCollections.Data;
 using RecipeCollections.DataAccess.Data.Repository.IRepository;
-using RecipeCollections.Models.Models;
+using RecipeCollections.Models;
 using System.Collections.Generic;
 using System.Web.Mvc;
 
@@ -15,6 +15,7 @@ namespace RecipeCollections.DataAccess.Data.Repository {
         public IEnumerable<SelectListItem> GetCreatorList() {
             throw new System.NotImplementedException();
         }
+
 
         public void Update(Creator creator) {
             throw new System.NotImplementedException();

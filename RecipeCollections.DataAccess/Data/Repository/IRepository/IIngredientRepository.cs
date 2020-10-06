@@ -1,4 +1,4 @@
-﻿using RecipeCollections.Models.Models;
+﻿using RecipeCollections.Models;
 using System.Collections.Generic;
 using System.Web.Mvc;
 

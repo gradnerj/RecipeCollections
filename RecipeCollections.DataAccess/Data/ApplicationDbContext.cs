@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
-using RecipeCollections.Models.Models;
+using RecipeCollections.Models;
 
 namespace RecipeCollections.Data
 {
@@ -17,6 +17,7 @@ namespace RecipeCollections.Data
         public DbSet<Ingredient> Ingredients { get; set; }
         public DbSet<Utensil> Utensils { get; set; }
         public DbSet<Review> Reviews { get; set; }
+        public DbSet<ApplicationUser> ApplicationUsers { get; set; }
 
     }
 }

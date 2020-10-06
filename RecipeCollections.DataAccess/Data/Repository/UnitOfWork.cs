@@ -17,6 +17,7 @@ namespace RecipeCollections.DataAccess.Data.Repository {
 
         public IUntensilRepository Utensil { get; private set; }
 
+        public IApplicationUserRepository ApplicationUser { get; private set; }
         public UnitOfWork(ApplicationDbContext context) {
             _context = context;
             Creator = new CreatorRepository(_context);
@@ -25,7 +26,7 @@ namespace RecipeCollections.DataAccess.Data.Repository {
             Review = new ReviewRepository(_context);
             Step = new StepRepository(_context);
             Utensil = new UtensilRepository(_context);
-
+            ApplicationUser = new ApplicationUserRepository(_context);
         }
         public void Dispose() {
             _context.Dispose();

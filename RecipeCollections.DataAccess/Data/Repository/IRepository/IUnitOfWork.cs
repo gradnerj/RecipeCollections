@@ -9,6 +9,8 @@ namespace RecipeCollections.DataAccess.Data.Repository.IRepository {
         IReviewRepository Review { get; }
         IStepRepository Step { get; }
         IUntensilRepository Utensil { get; }
+
+        IApplicationUserRepository ApplicationUser { get; }
         void Save();
     }
 }

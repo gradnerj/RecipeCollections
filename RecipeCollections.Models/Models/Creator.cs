@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace RecipeCollections.Models.Models
+namespace RecipeCollections.Models
 {
     public class Creator
     {

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace RecipeCollections.Models.Models
+namespace RecipeCollections.Models
 {
     public class Recipe
     {
