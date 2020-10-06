@@ -29,7 +29,6 @@ function loadList() {
                                     <i class="fas fa-lock-open"></i> Unlock
                                 </a></div> `;
                     }
-
                     else {
                         return ` <div class="text-center">
                                 <a class="btn btn-success text-white" onclick="LockUnlock('${data.id}')" style="cursor:pointer; width:100px;">
