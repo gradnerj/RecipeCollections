@@ -23,6 +23,7 @@
 ### TODO List -Deliverable 2 - Last Updated 10/06/2020 9:00 AM
 - [x] SendGrid
 - [x] Admin login
+- [ ] Change "User" role type to "Creator"
 - [ ] Admin CRUD of Users
 - [ ] User login
 - [ ] A Public homepage to "browse" the collection
