@@ -1,8 +1,8 @@
-﻿using RecipeCollections.Data;
+﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using RecipeCollections.Data;
 using RecipeCollections.DataAccess.Data.Repository.IRepository;
 using RecipeCollections.Models;
 using System.Collections.Generic;
-using System.Web.Mvc;
 
 namespace RecipeCollections.DataAccess.Data.Repository {
     public class StepRepository : Repository<Step>, IStepRepository {

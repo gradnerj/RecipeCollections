@@ -1,6 +1,6 @@
-﻿using RecipeCollections.Models;
+﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using RecipeCollections.Models;
 using System.Collections.Generic;
-using System.Web.Mvc;
 
 namespace RecipeCollections.DataAccess.Data.Repository.IRepository {
     public interface IUntensilRepository {
