@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Mvc;
 using RecipeCollections.DataAccess.Data.Repository.IRepository;
 
 namespace RecipeCollections.Controllers {
+    [Route("api/[controller]")]
+    [ApiController]
     public class UserController : Controller {
         private readonly IUnitOfWork _unitOfWork;
 

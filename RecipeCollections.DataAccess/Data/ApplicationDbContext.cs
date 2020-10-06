@@ -10,7 +10,6 @@ namespace RecipeCollections.Data
             : base(options)
         {
         }
-
         public DbSet<Creator> Creators { get; set; }
         public DbSet<Recipe> Recipes { get; set; }
         public DbSet<Step> Steps { get; set; }
@@ -18,6 +17,5 @@ namespace RecipeCollections.Data
         public DbSet<Utensil> Utensils { get; set; }
         public DbSet<Review> Reviews { get; set; }
         public DbSet<ApplicationUser> ApplicationUsers { get; set; }
-
     }
 }
