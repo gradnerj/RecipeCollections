@@ -31,7 +31,7 @@
 - [ ] Recipe Filtering
 - [ ] Recipe Paging
 - [ ] Admin CRUD of Recipes
-- [ ] At least 1 of the UI screens should support dropdowns lists 
+- [x] At least 1 of the UI screens should support dropdowns lists 
 - [ ] At least 1 of the Models should support uploading/editing images (demo this)
 - [ ] At least 1 of the UI screen should support TinyMCE HTML editing
 - [ ] Custom site styling
