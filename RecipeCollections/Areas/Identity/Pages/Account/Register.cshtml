@@ -4,9 +4,7 @@
 @{
     ViewData["Title"] = "Register";
 }
-
 <h1>@ViewData["Title"]</h1>
-
 <div class="py-4 my-4">
     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
     <div class="row form-group">
@@ -58,6 +56,8 @@
                                 <input type="radio" name="rdUserRole" value="@StaticDetails.CreatorRole" /> @StaticDetails.CreatorRole
                                 <input type="radio" name="rdUserRole" value="@StaticDetails.AdminRole" /> @StaticDetails.AdminRole
                             </div>
+                        } else {
+                            <input type="hidden" name="rdUserRole" value="@StaticDetails.CreatorRole" />
                         }
                         <div class="py-2">
                             <button type="submit" class="btn btn-success form-control">Register</button>

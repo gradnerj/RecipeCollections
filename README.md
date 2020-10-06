@@ -24,8 +24,8 @@
 - [x] SendGrid
 - [x] Admin login
 - [x] Change "User" role type to "Creator"
-- [ ] Admin CRUD of Users
-- [ ] User login
+- [x] Admin Lock of Users
+- [x] User login
 - [ ] A Public homepage to "browse" the collection
 - [ ] Recipe Sorting
 - [ ] Recipe Filtering
