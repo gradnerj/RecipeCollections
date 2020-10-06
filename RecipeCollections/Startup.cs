@@ -9,6 +9,9 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using RecipeCollections.Utility;
+using RecipeCollections.DataAccess.Data.Repository.IRepository;
+using RecipeCollections.DataAccess.Data.Repository;
+
 namespace RecipeCollections {
     public class Startup
     {
@@ -27,8 +30,8 @@ namespace RecipeCollections {
                     Configuration.GetConnectionString("DefaultConnection")));
             //services.AddDefaultIdentity<IdentityUser>()
             //    .AddEntityFrameworkStores<ApplicationDbContext>();
-            
 
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddRazorPages();
             services.AddMvc(options => options.EnableEndpointRouting = false);
             services.Configure<IdentityOptions>(options => {
