@@ -1,6 +1,6 @@
 ﻿@page
 @model RecipeCollections.Pages.Admin.Recipe.CreateModel
-
+@inject UserManager<IdentityUser> UserManager
 @{
     ViewData["Title"] = "Create";
     Layout = "~/Pages/Shared/_Layout.cshtml";
@@ -14,11 +14,11 @@
     <div class="col-md-4">
         <form method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Recipe.CreatorId" class="control-label"></label>
-                <input asp-for="Recipe.CreatorId" class="form-control" />
-                <span asp-validation-for="Recipe.CreatorId" class="text-danger"></span>
-            </div>
+
+
+            <input type="hidden" asp-for="Recipe.CreatorId" class="form-control" value=@UserManager.GetUserId(User) />
+
+
             <div class="form-group">
                 <label asp-for="Recipe.Title" class="control-label"></label>
                 <input asp-for="Recipe.Title" class="form-control" />
@@ -31,23 +31,28 @@
             </div>
             <div class="form-group">
                 <label asp-for="Recipe.PrepTime" class="control-label"></label>
-                <input asp-for="Recipe.PrepTime" class="form-control" />
+                <input asp-for="Recipe.PrepTime" placeholder="In minutes" class="form-control" />
                 <span asp-validation-for="Recipe.PrepTime" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Recipe.CookTime" class="control-label"></label>
-                <input asp-for="Recipe.CookTime" class="form-control" />
+                <input asp-for="Recipe.CookTime" placeholder="In minutes" class="form-control" />
                 <span asp-validation-for="Recipe.CookTime" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Recipe.FeedsQty" class="control-label"></label>
-                <input asp-for="Recipe.FeedsQty" class="form-control" />
+                <input type="number" asp-for="Recipe.FeedsQty" class="form-control" />
                 <span asp-validation-for="Recipe.FeedsQty" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Recipe.PhotoPath" class="control-label"></label>
-                <input asp-for="Recipe.PhotoPath" class="form-control" />
+                <input type="file" style="height:initial" asp-for="Recipe.PhotoPath" class="form-control" />
                 <span asp-validation-for="Recipe.PhotoPath" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Recipe.Instructions" class="control-label"></label>
+                <textarea asp-for="Recipe.Instructions" class="form-control"></textarea>
+                <span asp-validation-for="Recipe.Instructions" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
