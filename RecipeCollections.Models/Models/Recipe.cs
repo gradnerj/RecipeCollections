@@ -14,7 +14,7 @@ namespace RecipeCollections.Models
 
         [ForeignKey("ApplicationUser")]
         [Display(Name = "Creator Id")]
-        public int CreatorId { get; set; }
+        public string CreatorId { get; set; }
 
         [Display(Name="Recipe Title")]
         public string Title { get; set; }
