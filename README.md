@@ -26,12 +26,12 @@
 - [x] Change "User" role type to "Creator"
 - [x] Admin Lock of Users
 - [x] User login
+- [x] At least 1 of the UI screens should support dropdowns lists 
+- [ ] Admin CRUD of Recipes
 - [ ] A Public homepage to "browse" the collection
 - [ ] Recipe Sorting
 - [ ] Recipe Filtering
 - [ ] Recipe Paging
-- [ ] Admin CRUD of Recipes
-- [x] At least 1 of the UI screens should support dropdowns lists 
 - [ ] At least 1 of the Models should support uploading/editing images (demo this)
 - [ ] At least 1 of the UI screen should support TinyMCE HTML editing
 - [ ] Custom site styling
