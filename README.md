@@ -28,6 +28,8 @@
 - [x] User login
 - [x] At least 1 of the UI screens should support dropdowns lists 
 - [ ] Admin CRUD of Recipes
+  - [ ] Update Photo input type in Edit page
+  - [ ] Handle storing and retrieving photos
 - [ ] A Public homepage to "browse" the collection
 - [ ] Recipe Sorting
 - [ ] Recipe Filtering
