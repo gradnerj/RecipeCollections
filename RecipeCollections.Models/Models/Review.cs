@@ -9,7 +9,7 @@ namespace RecipeCollections.Models
         [Display(Name ="Id")]
         public int Id { get; set; }
 
-        [ForeignKey("Creator")]
+        [ForeignKey("ApplicationUser")]
         [Display(Name ="Creator Id")]
         public int CreatorId { get; set; }
 

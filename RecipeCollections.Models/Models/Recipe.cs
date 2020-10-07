@@ -12,7 +12,7 @@ namespace RecipeCollections.Models
         [Display(Name = "Id")]
         public int Id { get; set; }
 
-        [ForeignKey("Creator")]
+        [ForeignKey("ApplicationUser")]
         [Display(Name = "Creator Id")]
         public int CreatorId { get; set; }
 
@@ -34,11 +34,8 @@ namespace RecipeCollections.Models
         [Display(Name = "Photo")]
         public string PhotoPath { get; set; }
 
-        //[Display(Name = "Utensils Required")]
-        //public IEnumerable<Utensil> Utensils { get; set; }
-
-        //[Display(Name ="Steps")]
-        //public IEnumerable<Step> Steps { get; set; }
+        [Display(Name ="Instructions")]
+        public string Instructions { get; set; }
 
     }
 }
