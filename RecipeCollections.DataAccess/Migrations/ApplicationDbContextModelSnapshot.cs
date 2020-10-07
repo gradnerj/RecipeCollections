@@ -221,28 +221,6 @@ namespace RecipeCollections.DataAccess.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("RecipeCollections.Models.Creator", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<float>("AverageRating")
-                        .HasColumnType("real");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("NumberOfRecipies")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Creators");
-                });
-
             modelBuilder.Entity("RecipeCollections.Models.Ingredient", b =>
                 {
                     b.Property<int>("Id")
@@ -283,6 +261,9 @@ namespace RecipeCollections.DataAccess.Migrations
                     b.Property<int>("FeedsQty")
                         .HasColumnType("int");
 
+                    b.Property<string>("Instructions")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("PhotoPath")
                         .HasColumnType("nvarchar(max)");
 
@@ -319,45 +300,6 @@ namespace RecipeCollections.DataAccess.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Reviews");
-                });
-
-            modelBuilder.Entity("RecipeCollections.Models.Step", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("RecipeId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Steps");
-                });
-
-            modelBuilder.Entity("RecipeCollections.Models.Utensil", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<float>("Cost")
-                        .HasColumnType("real");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("RecipeId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Utensils");
                 });
 
             modelBuilder.Entity("RecipeCollections.Models.ApplicationUser", b =>
