@@ -37,6 +37,7 @@
 - [ ] Recipe Sorting
 - [ ] Recipe Filtering
 - [ ] Recipe Paging
+- [ ] Add default "No Photo Image"
 - [x] At least 1 of the Models should support uploading/editing images (demo this)
 - [ ] At least 1 of the UI screen should support TinyMCE HTML editing
 - [ ] Custom site styling

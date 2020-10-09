@@ -10,30 +10,40 @@
         <thead>
             <tr>
                 <th>
-                    @Html.DisplayNameFor(model => model.Recipe[0].Title)
+                    <a asp-page="./Index" asp-route-sortType="@Model.TitleSort">
+                        @Html.DisplayNameFor(model => model.Recipes[0].Title)
+                    </a>
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.Recipe[0].Category)
+                    <a asp-page="./Index" asp-route-sortType="@Model.CategorySort">
+                        @Html.DisplayNameFor(model => model.Recipes[0].Category)
+                    </a>
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.Recipe[0].PrepTime)
+                    <a asp-page="./Index" asp-route-sortType="@Model.PrepTimeSort">
+                        @Html.DisplayNameFor(model => model.Recipes[0].PrepTime)
+                    </a>
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.Recipe[0].CookTime)
+                    <a asp-page="./Index" asp-route-sortType="@Model.CookTimeSort">
+                        @Html.DisplayNameFor(model => model.Recipes[0].CookTime)
+                    </a>
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.Recipe[0].FeedsQty)
+                    <a asp-page="./Index" asp-route-sortType="@Model.FeedsQtySort">
+                        @Html.DisplayNameFor(model => model.Recipes[0].FeedsQty)
+                    </a>
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.Recipe[0].PhotoPath)
+                    @Html.DisplayNameFor(model => model.Recipes[0].PhotoPath)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.Recipe[0].Instructions)
+                    @Html.DisplayNameFor(model => model.Recipes[0].Instructions)
                 </th>
             </tr>
         </thead>
         <tbody>
-            @foreach (var r in Model.Recipe) {
+            @foreach (var r in Model.Recipes) {
                 <tr>
                     <td>
                         @Html.DisplayFor(modelItem => r.Title)
