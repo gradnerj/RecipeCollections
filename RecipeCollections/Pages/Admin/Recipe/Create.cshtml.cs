@@ -44,6 +44,17 @@ namespace RecipeCollections.Pages.Admin.Recipe {
                     files[0].CopyTo(fileStream);
                 }
                 Recipe.PhotoPath = @"\images\recipe_photos\" + fileName + extension;
+            } else {
+                
+                string fileName = Guid.NewGuid().ToString();
+                var uploads = Path.Combine(webRootPath, @"images\recipe_photos\");
+                var extension = Path.GetExtension(@"images\defaults\DefaultImage.jpg");
+                var fullpath = uploads + fileName + extension;
+                var defaults = Directory.GetFiles(Path.Combine(webRootPath, @"images\defaults\"));
+               
+                System.IO.File.Copy(defaults[0],fullpath);
+                
+                Recipe.PhotoPath = @"\images\recipe_photos\" + fileName + extension;
             }
 
             _context.Recipes.Add(Recipe);
