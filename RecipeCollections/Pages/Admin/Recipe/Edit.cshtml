@@ -12,7 +12,7 @@
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form method="post">
+        <form method="post" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Recipe.Id" />
             <div class="form-group">
@@ -45,14 +45,20 @@
                 <input asp-for="Recipe.FeedsQty" class="form-control" />
                 <span asp-validation-for="Recipe.FeedsQty" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="Recipe.PhotoPath" class="control-label"></label>
-                <input asp-for="Recipe.PhotoPath" class="form-control" />
-                <span asp-validation-for="Recipe.PhotoPath" class="text-danger"></span>
+            <div class="form-group row image-row">
+                <div class="col">
+                    <label asp-for="Recipe.PhotoPath" class="control-label"></label>
+                    <input type="file" asp-for="Recipe.PhotoPath" class="form-control" />
+                    <span asp-validation-for="Recipe.PhotoPath" class="text-danger"></span>
+                </div>
+                <div class="col">
+                    <img src="@Model.Recipe.PhotoPath" class="img-thumbnail customImageSize" />
+                    <input type="hidden" asp-for="OldPhotoPath" value="@Model.Recipe.PhotoPath" />
+                </div>
             </div>
             <div class="form-group">
                 <label asp-for="Recipe.Instructions" class="control-label"></label>
-                <input asp-for="Recipe.Instructions" class="form-control" />
+                <input style="height:initial" asp-for="Recipe.Instructions" class="form-control" />
                 <span asp-validation-for="Recipe.Instructions" class="text-danger"></span>
             </div>
             <div class="form-group">

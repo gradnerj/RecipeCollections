@@ -1,22 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.IO;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
-using RecipeCollections.Data;
-using RecipeCollections.Models;
 
-namespace RecipeCollections.Pages.Admin.Recipe
-{
+namespace RecipeCollections.Pages.Admin.Recipe {
     public class DeleteModel : PageModel
     {
-        private readonly RecipeCollections.Data.ApplicationDbContext _context;
-
-        public DeleteModel(RecipeCollections.Data.ApplicationDbContext context)
+        private readonly Data.ApplicationDbContext _context;
+        private readonly IWebHostEnvironment _hostEnvironment;
+        public DeleteModel(Data.ApplicationDbContext context, IWebHostEnvironment hostEnvironment)
         {
             _context = context;
+            _hostEnvironment = hostEnvironment;
         }
 
         [BindProperty]
@@ -44,9 +41,13 @@ namespace RecipeCollections.Pages.Admin.Recipe
             {
                 return NotFound();
             }
-
             Recipe = await _context.Recipes.FindAsync(id);
-
+            if (Recipe.PhotoPath != null) {
+                var imgPath = Path.Combine(_hostEnvironment.WebRootPath, Recipe.PhotoPath.TrimStart('\\'));
+                if (System.IO.File.Exists(imgPath)) {
+                    System.IO.File.Delete(imgPath);
+                }
+            }
             if (Recipe != null)
             {
                 _context.Recipes.Remove(Recipe);

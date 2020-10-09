@@ -7,6 +7,7 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="3.1.8" />
+    <PackageReference Include="Microsoft.AspNetCore.Hosting" Version="2.2.7" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.1.8" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="3.1.8" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="3.1.8" />
@@ -20,6 +21,10 @@
     <ProjectReference Include="..\RecipeCollections.DataAccess\RecipeCollections.DataAccess.csproj" />
     <ProjectReference Include="..\RecipeCollections.Models\RecipeCollections.Models.csproj" />
     <ProjectReference Include="..\RecipeCollections.Utility\RecipeCollections.Utility.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\images\recipe_photos\" />
   </ItemGroup>
 
 </Project>

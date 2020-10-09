@@ -2,15 +2,19 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using RecipeCollections.Data;
+using Microsoft.AspNetCore.Hosting;
+using System.IO;
+using System;
 
 namespace RecipeCollections.Pages.Admin.Recipe {
     public class CreateModel : PageModel
     {
         private readonly ApplicationDbContext _context;
-
-        public CreateModel(ApplicationDbContext context)
+        private readonly IWebHostEnvironment _hostEnvironment;
+        public CreateModel(ApplicationDbContext context, IWebHostEnvironment hostEnvironment)
         {
             _context = context;
+            _hostEnvironment = hostEnvironment;
         }
 
         public IActionResult OnGet()
@@ -28,6 +32,18 @@ namespace RecipeCollections.Pages.Admin.Recipe {
             if (!ModelState.IsValid)
             {
                 return Page();
+            }
+            string webRootPath = _hostEnvironment.WebRootPath;
+            var files = HttpContext.Request.Form.Files;
+            if (files.Count > 0) {
+                string fileName = Guid.NewGuid().ToString();
+                var uploads = Path.Combine(webRootPath, @"images\recipe_photos\");
+                var extension = Path.GetExtension(files[0].FileName);
+                var fullpath = uploads + fileName + extension;
+                using (var fileStream = System.IO.File.Create(fullpath)) {
+                    files[0].CopyTo(fileStream);
+                }
+                Recipe.PhotoPath = @"\images\recipe_photos\" + fileName + extension;
             }
 
             _context.Recipes.Add(Recipe);
