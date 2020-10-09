@@ -27,16 +27,16 @@
 - [x] Admin Lock of Users
 - [x] User login
 - [x] At least 1 of the UI screens should support dropdowns lists 
-- [ ] Admin CRUD of Recipes
+- [x] Admin CRUD of Recipes
   - [x] Update Photo input type in Edit page
   - [x] Create: Saves Photo to server and path to object
   - [x] Index: View photo not path
   - [x] Edit: If photo exists on server, delete it and save new photo
   - [x] Delete: Delete object and photo from server
-- [ ] A Public homepage to "browse" the collection
+- [x] A Public homepage to "browse" the collection
 - [ ] Recipe Sorting
 - [ ] Recipe Filtering
 - [ ] Recipe Paging
-- [ ] At least 1 of the Models should support uploading/editing images (demo this)
+- [x] At least 1 of the Models should support uploading/editing images (demo this)
 - [ ] At least 1 of the UI screen should support TinyMCE HTML editing
 - [ ] Custom site styling

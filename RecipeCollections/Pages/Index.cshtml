@@ -5,6 +5,59 @@
 }
 
 <div class="text-center">
-    <h1 class="display-4">Recipe Collection Site</h1>
-    <h13>This Page is Under Construction</h13>
+    <h1 class="display-4">Recipe Collection Site - Under Construction</h1>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Recipe[0].Title)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Recipe[0].Category)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Recipe[0].PrepTime)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Recipe[0].CookTime)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Recipe[0].FeedsQty)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Recipe[0].PhotoPath)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Recipe[0].Instructions)
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var r in Model.Recipe) {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => r.Title)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => r.Category)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => r.PrepTime)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => r.CookTime)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => r.FeedsQty)
+                    </td>
+                    <td>
+                        <img src="@r.PhotoPath" class="img-thumbnail customImageSize" />
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => r.Instructions)
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
 </div>
