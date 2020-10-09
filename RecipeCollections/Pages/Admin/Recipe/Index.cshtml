@@ -1,6 +1,6 @@
 ﻿@page
 @model RecipeCollections.Pages.Admin.Recipe.IndexModel
-
+@using System.Text.RegularExpressions 
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Pages/Shared/_Layout.cshtml";
@@ -66,7 +66,41 @@
                 <img src="@item.PhotoPath" class="img-thumbnail customImageSize" />
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Instructions)
+                @{
+                    if (item.Instructions.Contains("<ul>")) {
+                        var itemCount = Regex.Matches(item.Instructions, "<li>").Count;
+                        var parsedInstructions = item.Instructions.Replace("\n", "").Replace("\r", "");
+                        parsedInstructions = parsedInstructions.Replace("<ul>", "");
+                        parsedInstructions = parsedInstructions.Replace("</li></ul>", "");
+                        parsedInstructions = parsedInstructions.Replace("<li>", "");
+                        parsedInstructions = parsedInstructions.Replace("</li>", ".");
+                        var listItems = parsedInstructions.Split('.');
+                        <ul>
+                            @foreach (var l in listItems) {
+                                <li>
+                                    @l
+                                </li>
+                            }
+                        </ul>
+                    } else if (item.Instructions.Contains("<ol>")) {
+                        var itemCount = Regex.Matches(item.Instructions, "<li>").Count;
+                        var parsedInstructions = item.Instructions.Replace("\n", "").Replace("\r", "");
+                        parsedInstructions = parsedInstructions.Replace("<ol>", "");
+                        parsedInstructions = parsedInstructions.Replace("</li></ol>", "");
+                        parsedInstructions = parsedInstructions.Replace("<li>", "");
+                        parsedInstructions = parsedInstructions.Replace("</li>", ".");
+                        var listItems = parsedInstructions.Split('.');
+                        <ol>
+                            @foreach (var l in listItems) {
+                                <li>
+                                    @l
+                                </li>
+                            }
+                        </ol>
+                    } else {
+                        Html.DisplayFor(modelItem => item.FeedsQty);
+                    }
+                }
             </td>
             <td>
                 <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |

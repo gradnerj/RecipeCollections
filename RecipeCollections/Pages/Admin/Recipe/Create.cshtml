@@ -14,11 +14,7 @@
     <div class="col-md-4">
         <form method="post" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-
-
             <input type="hidden" asp-for="Recipe.CreatorId" class="form-control" value=@UserManager.GetUserId(User) />
-
-
             <div class="form-group">
                 <label asp-for="Recipe.Title" class="control-label"></label>
                 <input asp-for="Recipe.Title" class="form-control" />
@@ -51,7 +47,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="Recipe.Instructions" class="control-label"></label>
-                <textarea asp-for="Recipe.Instructions" class="form-control"></textarea>
+                <textarea id="tinymce_instructions" asp-for="Recipe.Instructions" class="form-control"></textarea>
                 <span asp-validation-for="Recipe.Instructions" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -66,5 +62,13 @@
 </div>
 
 @section Scripts {
+    <script>
+        tinymce.init({
+            selector: 'textarea',
+            plugins: "lists",
+            menubar: 'file edit format',
+        });
+    </script>
+
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }
