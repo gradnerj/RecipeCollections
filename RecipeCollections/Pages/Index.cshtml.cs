@@ -23,25 +23,30 @@ namespace RecipeCollections.Pages {
         public string PrepTimeSort { get; set; }
         public string CookTimeSort { get; set; }
         public string FeedsQtySort { get; set; }
-
-        public IList<Models.Recipe> Recipes { get; set; }
-        public async Task OnGetAsync(string sortType)
+        public string CurrentFilter { get; set; }
+        public IList<Recipe> Recipes { get; set; }
+        public async Task OnGetAsync(string sortType, string searchString)
         {
             TitleSort = String.IsNullOrEmpty(sortType) ? "title_desc" : "";
             CategorySort = sortType == "Category" ? "category_desc" : "Category";
             PrepTimeSort = sortType == "PrepTime" ? "preptime_desc" : "PrepTime";
             CookTimeSort = sortType == "CookTime" ? "cooktime_desc" : "CookTime";
             FeedsQtySort = sortType == "FeedsQty" ? "feedsqty_desc" : "FeedsQty";
-
-            var recipesIQ = getSorted(sortType);
+            CurrentFilter = searchString;
+            var recipesIQ = getFilteredSorted(sortType, CurrentFilter);
 
             Recipes = await recipesIQ.AsNoTracking().ToListAsync();
         }
 
 
-        private IQueryable<Recipe> getSorted(string sortType) {
+        private IQueryable<Recipe> getFilteredSorted(string sortType, string filterBy) {
             IQueryable<Recipe> recipesIQ = from r in _context.Recipes
                                            select r;
+
+            if (!String.IsNullOrEmpty(filterBy)) {
+                recipesIQ = recipesIQ.Where(r => r.Title.Contains(filterBy) || r.Category.Contains(filterBy));
+            }
+
             switch (sortType) {
                 case "title_desc":
                     recipesIQ = recipesIQ.OrderByDescending(r => r.Title);
