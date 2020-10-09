@@ -8,36 +8,36 @@
     <h1 class="display-4">Recipe Collection Site - Under Construction</h1>
     <form asp-page="./Index" method="get">
         <div class="form-actions">
-                <input type="text" placeholder="Find by Title or Category" name="SearchString" value="@Model.CurrentFilter" />
-                <input type="submit" value="Search" class="btn btn-primary" /> |
-                <a asp-page="./Index">Back to full List</a>
+            <input type="text" placeholder="Find by Title or Category" name="SearchString" value="@Model.CurrentFilter" />
+            <input type="submit" value="Search" class="btn btn-primary" /> |
+            <a asp-page="./Index">Back to full List</a>
         </div>
     </form>
     <table class="table">
         <thead>
             <tr>
                 <th>
-                    <a asp-page="./Index" asp-route-sortType="@Model.TitleSort">
+                    <a asp-page="./Index" asp-route-sortType="@Model.TitleSort" asp-route-currentFilter="@Model.CurrentFilter">
                         @Html.DisplayNameFor(model => model.Recipes[0].Title)
                     </a>
                 </th>
                 <th>
-                    <a asp-page="./Index" asp-route-sortType="@Model.CategorySort">
+                    <a asp-page="./Index" asp-route-sortType="@Model.CategorySort" asp-route-currentFilter="@Model.CurrentFilter">
                         @Html.DisplayNameFor(model => model.Recipes[0].Category)
                     </a>
                 </th>
                 <th>
-                    <a asp-page="./Index" asp-route-sortType="@Model.PrepTimeSort">
+                    <a asp-page="./Index" asp-route-sortType="@Model.PrepTimeSort" asp-route-currentFilter="@Model.CurrentFilter">
                         @Html.DisplayNameFor(model => model.Recipes[0].PrepTime)
                     </a>
                 </th>
                 <th>
-                    <a asp-page="./Index" asp-route-sortType="@Model.CookTimeSort">
+                    <a asp-page="./Index" asp-route-sortType="@Model.CookTimeSort" asp-route-currentFilter="@Model.CurrentFilter">
                         @Html.DisplayNameFor(model => model.Recipes[0].CookTime)
                     </a>
                 </th>
                 <th>
-                    <a asp-page="./Index" asp-route-sortType="@Model.FeedsQtySort">
+                    <a asp-page="./Index" asp-route-sortType="@Model.FeedsQtySort" asp-route-currentFilter="@Model.CurrentFilter">
                         @Html.DisplayNameFor(model => model.Recipes[0].FeedsQty)
                     </a>
                 </th>
@@ -77,4 +77,22 @@
             }
         </tbody>
     </table>
+    @{ 
+        var prevDisabled = !Model.Recipes.HasPreviousPage ? "disabled" : "";
+        var nextDisabled = !Model.Recipes.HasNextPage ? "disabled" : "";
+    }
+    <a asp-page="./Index"
+       asp-route-sortOrder="@Model.CurrentSort"
+       asp-route-pageIndex="@(Model.Recipes.PageIndex - 1)"
+       asp-route-currentFilter="@Model.CurrentFilter"
+       class="btn btn-primary @prevDisabled">
+        Previous
+    </a>
+    <a asp-page="./Index"
+       asp-route-sortOrder="@Model.CurrentSort"
+       asp-route-pageIndex="@(Model.Recipes.PageIndex + 1)"
+       asp-route-currentFilter="@Model.CurrentFilter"
+       class="btn btn-primary @nextDisabled">
+        Next
+    </a>
 </div>

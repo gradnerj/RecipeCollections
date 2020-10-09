@@ -34,8 +34,8 @@
   - [x] Edit: If photo exists on server, delete it and save new photo
   - [x] Delete: Delete object and photo from server
 - [x] A Public homepage to "browse" the collection
-- [ ] Recipe Sorting
-- [ ] Recipe Filtering
+- [x] Recipe Sorting
+- [x] Recipe Filtering
 - [ ] Recipe Paging
 - [ ] Add default "No Photo Image"
 - [x] At least 1 of the Models should support uploading/editing images (demo this)
