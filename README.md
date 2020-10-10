@@ -46,4 +46,4 @@
 - [x] Create, Details, Delete link styling 
 - [x] Details instructions
 - [ ] Media query for different screen sizes
-- [ ] Add Real Recipes for Demo
+- [x] Add Real Recipes for Demo
