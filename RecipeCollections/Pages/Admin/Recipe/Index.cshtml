@@ -10,43 +10,62 @@
 <h1>Index</h1>
 
 <p>
-    <a asp-page="Create">Create New</a>
+    <a style="color:firebrick" asp-page="Create">Create New</a>
 </p>
+<form style="text-align:end" asp-page="./Index" method="get">
+    <div class="form-actions">
+        <input type="text" placeholder="Find by Title or Category" name="SearchString" value="@Model.CurrentFilter" />
+        <input type="submit" value="Search" class="btn btn-success" />
+    </div>
+    <div class="h6 sidebar-items"><a class="sidebar-links" asp-page="./Index">Back to full List</a></div>
+</form>
 <table class="table table-striped">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Recipe[0].CreatorId)
+                <a class="sidebar-links" asp-page="./Index" asp-route-sortType="@Model.CreatorIdSort" asp-route-currentFilter="@Model.CurrentFilter">
+                    @Html.DisplayNameFor(model => model.Recipes[0].CreatorId)
+                </a>
             </th>
-            <th>
+            <th style="color:firebrick">
                 Username
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Recipe[0].Title)
+                <a class="sidebar-links" asp-page="./Index" asp-route-sortType="@Model.TitleSort" asp-route-currentFilter="@Model.CurrentFilter">
+                    @Html.DisplayNameFor(model => model.Recipes[0].Title)
+                </a>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Recipe[0].Category)
+                <a class="sidebar-links" asp-page="./Index" asp-route-sortType="@Model.CategorySort" asp-route-currentFilter="@Model.CurrentFilter">
+                    @Html.DisplayNameFor(model => model.Recipes[0].Category)
+                </a>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Recipe[0].PrepTime)
+                <a class="sidebar-links" asp-page="./Index" asp-route-sortType="@Model.PrepTimeSort" asp-route-currentFilter="@Model.CurrentFilter">
+                    @Html.DisplayNameFor(model => model.Recipes[0].PrepTime)
+                </a>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Recipe[0].CookTime)
+                <a class="sidebar-links" asp-page="./Index" asp-route-sortType="@Model.CookTimeSort" asp-route-currentFilter="@Model.CurrentFilter">
+                    @Html.DisplayNameFor(model => model.Recipes[0].CookTime)
+                </a>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Recipe[0].FeedsQty)
+                <a class="sidebar-links" asp-page="./Index" asp-route-sortType="@Model.FeedsQtySort" asp-route-currentFilter="@Model.CurrentFilter">
+                    @Html.DisplayNameFor(model => model.Recipes[0].FeedsQty)
+                </a>
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Recipe[0].PhotoPath)
+            <th style="color:firebrick">
+                @Html.DisplayNameFor(model => model.Recipes[0].PhotoPath)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Recipe[0].Instructions)
+            <th style="color:firebrick">
+                @Html.DisplayNameFor(model => model.Recipes[0].Instructions)
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-        @foreach (var item in Model.Recipe) {
+        @foreach (var item in Model.Recipes) {
             <tr>
                 <td>
                     @Html.DisplayFor(modelItem => item.CreatorId)
@@ -122,3 +141,26 @@
         }
     </tbody>
 </table>
+<div class="row-12 offset-5" style="justify-content:space-evenly; margin-top: 20px;">
+    @{
+        var prevDisabled = !Model.Recipes.HasPreviousPage ? "disabled" : "";
+        var nextDisabled = !Model.Recipes.HasNextPage ? "disabled" : "";
+    }
+
+    <a asp-page="./Index"
+       asp-route-sortOrder="@Model.CurrentSort"
+       asp-route-pageIndex="@(Model.Recipes.PageIndex - 1)"
+       asp-route-currentFilter="@Model.CurrentFilter"
+       class="btn btn-success @prevDisabled">
+        Previous
+    </a>
+
+
+    <a asp-page="./Index"
+       asp-route-sortOrder="@Model.CurrentSort"
+       asp-route-pageIndex="@(Model.Recipes.PageIndex + 1)"
+       asp-route-currentFilter="@Model.CurrentFilter"
+       class="btn btn-success @nextDisabled">
+        Next
+    </a>
+</div>
