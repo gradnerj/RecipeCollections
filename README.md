@@ -40,7 +40,8 @@
 - [x] Add default "No Photo Image"
 - [x] At least 1 of the Models should support uploading/editing images (demo this)
 - [x] At least 1 of the UI screen should support TinyMCE HTML editing
-- [ ] Custom site styling
-- [ ] Photo on Details page
-- [ ] Pagination, Filtering, Sorting for Admin Recipe
-- [ ] 
+- [x] Custom site styling
+- [x] Photo on Details page
+- [x] Pagination, Filtering, Sorting for Admin Recipe
+- [x] Create, Details, Delete link styling 
+- [x] Details instructions
