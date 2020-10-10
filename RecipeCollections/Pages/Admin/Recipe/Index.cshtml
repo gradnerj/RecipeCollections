@@ -104,7 +104,7 @@
                             parsedInstructions = parsedInstructions.Replace("<li>", "");
                             parsedInstructions = parsedInstructions.Replace("</li>", ".");
                             var listItems = parsedInstructions.Split('.');
-                            <ul>
+                            <ul style="height:125px;" class="overflow-auto">
                                 @foreach (var l in listItems) {
                                     <li>
                                         @l
@@ -119,7 +119,7 @@
                             parsedInstructions = parsedInstructions.Replace("<li>", "");
                             parsedInstructions = parsedInstructions.Replace("</li>", ".");
                             var listItems = parsedInstructions.Split('.');
-                            <ol>
+                            <ol style="height:125px;" class="overflow-auto">
                                 @foreach (var l in listItems) {
                                     <li>
                                         @l

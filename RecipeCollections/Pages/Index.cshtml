@@ -103,13 +103,13 @@
                                             <th scope="row">
                                                 Prep. Time
                                             </th>
-                                            <td><p class="card-text">@Html.DisplayFor(modelItem => r.PrepTime)</p></td>
+                                            <td><p class="card-text">@Html.DisplayFor(modelItem => r.PrepTime) min.</p></td>
                                         </tr>
                                         <tr>
                                             <th scope="row">
                                                 Cook. Time
                                             </th>
-                                            <td><p class="card-text">@Html.DisplayFor(modelItem => r.CookTime)</p></td>
+                                            <td><p class="card-text">@Html.DisplayFor(modelItem => r.CookTime) min.</p></td>
                                         </tr>
                                         <tr>
                                             <th scope="row">
@@ -121,43 +121,43 @@
                                             <th colspan="2" class="text-center">Instructions</th>
                                         </tr>
                                         <tr>
-                                            <td>
-                                                @if (r.Instructions.Contains("<ul>")) {
-                                                    var itemCount = Regex.Matches(r.Instructions, "<li>").Count;
-                                                    var parsedInstructions = r.Instructions.Replace("\n", "").Replace("\r", "");
-                                                    parsedInstructions = parsedInstructions.Replace("<ul>", "");
-                                                    parsedInstructions = parsedInstructions.Replace("</li></ul>", "");
-                                                    parsedInstructions = parsedInstructions.Replace("<li>", "");
-                                                    parsedInstructions = parsedInstructions.Replace("</li>", ".");
-                                                    var listItems = parsedInstructions.Split('.');
-                                                    <ul>
-                                                        @foreach (var l in listItems) {
-                                                            <li>
-                                                                @l
-                                                            </li>
-                                                        }
-                                                    </ul>
-                                                } else if (r.Instructions.Contains("<ol>")) {
-                                                    var itemCount = Regex.Matches(r.Instructions, "<li>").Count;
-                                                    var parsedInstructions = r.Instructions.Replace("\n", "").Replace("\r", "");
-                                                    parsedInstructions = parsedInstructions.Replace("<ol>", "");
-                                                    parsedInstructions = parsedInstructions.Replace("</li></ol>", "");
-                                                    parsedInstructions = parsedInstructions.Replace("<li>", "");
-                                                    parsedInstructions = parsedInstructions.Replace("</li>", ".");
-                                                    var listItems = parsedInstructions.Split('.');
-                                                    <ol>
-                                                        @foreach (var l in listItems) {
-                                                            <li>
-                                                                @l
-                                                            </li>
-                                                        }
-                                                    </ol>
-                                                } else {
-                                                    var parsedInstructions = r.Instructions.Replace("<p>", "").Replace("</p>", "");
-                                                    <p class="card-text">
-                                                        @parsedInstructions
-                                                    </p>
-                                                }
+                                            <td colspan="2"> 
+                                                    @if (r.Instructions.Contains("<ul>")) {
+                                                        var itemCount = Regex.Matches(r.Instructions, "<li>").Count;
+                                                        var parsedInstructions = r.Instructions.Replace("\n", "").Replace("\r", "");
+                                                        parsedInstructions = parsedInstructions.Replace("<ul>", "");
+                                                        parsedInstructions = parsedInstructions.Replace("</li></ul>", "");
+                                                        parsedInstructions = parsedInstructions.Replace("<li>", "");
+                                                        parsedInstructions = parsedInstructions.Replace("</li>", ".");
+                                                        var listItems = parsedInstructions.Split('.');
+                                                        <ul class="overflow-auto" style="height:150px">
+                                                            @foreach (var l in listItems) {
+                                                                <li>
+                                                                    @l
+                                                                </li>
+                                                            }
+                                                        </ul>
+                                                    } else if (r.Instructions.Contains("<ol>")) {
+                                                        var itemCount = Regex.Matches(r.Instructions, "<li>").Count;
+                                                        var parsedInstructions = r.Instructions.Replace("\n", "").Replace("\r", "");
+                                                        parsedInstructions = parsedInstructions.Replace("<ol>", "");
+                                                        parsedInstructions = parsedInstructions.Replace("</li></ol>", "");
+                                                        parsedInstructions = parsedInstructions.Replace("<li>", "");
+                                                        parsedInstructions = parsedInstructions.Replace("</li>", ".");
+                                                        var listItems = parsedInstructions.Split('.');
+                                                        <ol class="overflow-auto" style="height:150px">
+                                                            @foreach (var l in listItems) {
+                                                                <li>
+                                                                    @l
+                                                                </li>
+                                                            }
+                                                        </ol>
+                                                    } else {
+                                                        var parsedInstructions = r.Instructions.Replace("<p>", "").Replace("</p>", "");
+                                                        <p class="card-text">
+                                                            @parsedInstructions
+                                                        </p>
+                                                    }
                                             </td>
                                         </tr>
                                     </table>

@@ -20,7 +20,7 @@
 | Remove recipes | ✔ | ✔ |
 
 
-### TODO List -Deliverable 2 - Last Updated 10/06/2020 9:00 AM
+### TODO List -Deliverable 2
 - [x] SendGrid
 - [x] Admin login
 - [x] Change "User" role type to "Creator"
@@ -45,3 +45,5 @@
 - [x] Pagination, Filtering, Sorting for Admin Recipe
 - [x] Create, Details, Delete link styling 
 - [x] Details instructions
+- [ ] Media query for different screen sizes
+- [ ] Add Real Recipes for Demo
