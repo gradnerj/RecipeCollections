@@ -65,6 +65,9 @@ namespace RecipeCollections.Pages.Admin.Recipe {
                 }
                 Recipe.PhotoPath = @"\images\recipe_photos\" + fileName + extension;
             }
+            else if(OldPhotoPath != null) {
+                Recipe.PhotoPath = OldPhotoPath;
+            }
 
             _context.Attach(Recipe).State = EntityState.Modified;
 
