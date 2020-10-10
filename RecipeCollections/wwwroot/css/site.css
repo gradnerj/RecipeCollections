@@ -3,7 +3,13 @@
     height: 150px;
     max-width: initial;
 }
+.dropdown-item:focus, .dropdown-item:hover {
+    background-color: indianred;
+}
 
+.sidebar-links{
+    color:firebrick;
+}
 .image-row {
     width : max-content;
 }
@@ -11,14 +17,15 @@
     height: 700px;
 }
 .sidebar {
-  position: fixed;
+  position: absolute;
   top: 57px;
   bottom: 60px;
   left: 0;
   z-index: 100; /* Behind the navbar */
-  padding: 48px 0 0; /* Height of navbar */
+  padding: 100px 0 0; /* Height of navbar */
   box-shadow: inset -1px 0 0 rgba(0, 0, 0, .1);
 }
+
 
 .sidebar-items{
     margin-left: 10%;
@@ -34,6 +41,7 @@ a.navbar-brand {
   white-space: normal;
   text-align: center;
   word-break: break-all;
+
 }
 
 /* Provide sufficient contrast against white background */
