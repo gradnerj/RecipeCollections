@@ -13,10 +13,16 @@ namespace RecipeCollections.Pages.Admin.Recipe {
         {
             _context = context;
         }
-
+        public string TitleSort { get; set; }
+        public string CategorySort { get; set; }
+        public string PrepTimeSort { get; set; }
+        public string CookTimeSort { get; set; }
+        public string FeedsQtySort { get; set; }
+        public string CurrentFilter { get; set; }
+        public string CurrentSort { get; set; }
         public IList<Models.Recipe> Recipe { get;set; }
 
-        public async Task OnGetAsync()
+        public async Task OnGetAsync(string sortType, string searchString, string currentFilter, int? pageIndex)
         {
             Recipe = await _context.Recipes.ToListAsync();
         }

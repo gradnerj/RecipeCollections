@@ -41,3 +41,6 @@
 - [x] At least 1 of the Models should support uploading/editing images (demo this)
 - [x] At least 1 of the UI screen should support TinyMCE HTML editing
 - [ ] Custom site styling
+- [ ] Photo on Details page
+- [ ] Pagination, Filtering, Sorting for Admin Recipe
+- [ ] 

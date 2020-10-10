@@ -52,7 +52,7 @@
             @Html.DisplayNameFor(model => model.Recipe.PhotoPath)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Recipe.PhotoPath)
+            <img src="@Model.Recipe.PhotoPath" class="img-thumbnail customImageSize" />
         </dd>
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Recipe.Instructions)
