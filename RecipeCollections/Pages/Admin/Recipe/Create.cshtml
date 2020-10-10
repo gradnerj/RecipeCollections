@@ -1,0 +1,74 @@
+﻿@page
+@model RecipeCollections.Pages.Admin.Recipe.CreateModel
+@inject UserManager<IdentityUser> UserManager
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+
+<h1>Create</h1>
+
+<h4>Recipe</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Recipe.CreatorId" class="form-control" value=@UserManager.GetUserId(User) />
+            <div class="form-group">
+                <label asp-for="Recipe.Title" class="control-label"></label>
+                <input asp-for="Recipe.Title" class="form-control" />
+                <span asp-validation-for="Recipe.Title" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Recipe.Category" class="control-label"></label>
+                <input asp-for="Recipe.Category" class="form-control" />
+                <span asp-validation-for="Recipe.Category" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Recipe.PrepTime" class="control-label"></label>
+                <input asp-for="Recipe.PrepTime" placeholder="In minutes" class="form-control" />
+                <span asp-validation-for="Recipe.PrepTime" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Recipe.CookTime" class="control-label"></label>
+                <input asp-for="Recipe.CookTime" placeholder="In minutes" class="form-control" />
+                <span asp-validation-for="Recipe.CookTime" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Recipe.FeedsQty" class="control-label"></label>
+                <input type="number" asp-for="Recipe.FeedsQty" class="form-control" />
+                <span asp-validation-for="Recipe.FeedsQty" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Recipe.PhotoPath" class="control-label"></label>
+                <input type="file" style="height:initial" asp-for="Recipe.PhotoPath" class="form-control" />
+                <span asp-validation-for="Recipe.PhotoPath" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Recipe.Instructions" class="control-label"></label>
+                <textarea id="tinymce_instructions" asp-for="Recipe.Instructions" class="form-control"></textarea>
+                <span asp-validation-for="Recipe.Instructions" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-success" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    <script>
+        tinymce.init({
+            selector: 'textarea',
+            plugins: "lists",
+            menubar: 'file edit format',
+        });
+    </script>
+
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

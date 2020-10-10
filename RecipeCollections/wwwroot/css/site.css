@@ -1,10 +1,74 @@
-﻿/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
+﻿/*rating code from https://css-tricks.com/star-ratings/ */
+.rating {
+    unicode-bidi: bidi-override;
+    direction: rtl;
+}
+
+.rating > span {
+    display: inline-block;
+    position: relative;
+    width: 1.1em;
+}
+
+.rating > span:hover:before,
+.rating > span:hover ~ span:before {
+    content: "\2605";
+    position: absolute;
+}
+/*===========================================================*/
+
+.customImageSize {
+    width: 150px;
+    height: 150px;
+    max-width: initial;
+}
+.dropdown-item:focus, .dropdown-item:hover {
+    background-color: indianred;
+}
+a.far,a.fa-star{
+    color:yellow;
+}
+a.far:hover{
+    
+}
+.table td, .table th{
+    padding: .5em;
+}
+.sidebar-links{
+    color:firebrick;
+}
+.image-row {
+    width : max-content;
+}
+.card{
+    height: 700px;
+}
+.sidebar {
+  position: absolute;
+  top: 57px;
+  bottom: 60px;
+  left: 0;
+  z-index: 100; /* Behind the navbar */
+  padding: 100px 0 0; /* Height of navbar */
+  box-shadow: inset -1px 0 0 rgba(0, 0, 0, .1);
+}
+
+
+.sidebar-items{
+    margin-left: 10%;
+}
+
+.uniform-img{
+    height: 256px;
+}
+/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
 for details on configuring this project to bundle and minify static web assets. */
 
 a.navbar-brand {
   white-space: normal;
   text-align: center;
   word-break: break-all;
+
 }
 
 /* Provide sufficient contrast against white background */

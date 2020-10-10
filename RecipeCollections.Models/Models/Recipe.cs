@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace RecipeCollections.Models.Models
+namespace RecipeCollections.Models
 {
     public class Recipe
     {
@@ -12,9 +12,9 @@ namespace RecipeCollections.Models.Models
         [Display(Name = "Id")]
         public int Id { get; set; }
 
-        [ForeignKey("Creator")]
+        [ForeignKey("ApplicationUser")]
         [Display(Name = "Creator Id")]
-        public int CreatorId { get; set; }
+        public string CreatorId { get; set; }
 
         [Display(Name="Recipe Title")]
         public string Title { get; set; }
@@ -34,11 +34,8 @@ namespace RecipeCollections.Models.Models
         [Display(Name = "Photo")]
         public string PhotoPath { get; set; }
 
-        //[Display(Name = "Utensils Required")]
-        //public IEnumerable<Utensil> Utensils { get; set; }
-
-        //[Display(Name ="Steps")]
-        //public IEnumerable<Step> Steps { get; set; }
+        [Display(Name ="Instructions")]
+        public string Instructions { get; set; }
 
     }
 }
