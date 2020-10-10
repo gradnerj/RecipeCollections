@@ -1,5 +1,6 @@
 ﻿@page
 @model IndexModel
+@using System.Text.RegularExpressions
 @{
     ViewData["Title"] = "Recipe Collection Landing Page";
 }
@@ -71,13 +72,47 @@
                         <img src="@r.PhotoPath" class="img-thumbnail customImageSize" />
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => r.Instructions)
+                        @{
+                            if (r.Instructions.Contains("<ul>")) {
+                                var itemCount = Regex.Matches(r.Instructions, "<li>").Count;
+                                var parsedInstructions = r.Instructions.Replace("\n", "").Replace("\r", "");
+                                parsedInstructions = parsedInstructions.Replace("<ul>", "");
+                                parsedInstructions = parsedInstructions.Replace("</li></ul>", "");
+                                parsedInstructions = parsedInstructions.Replace("<li>", "");
+                                parsedInstructions = parsedInstructions.Replace("</li>", ".");
+                                var listItems = parsedInstructions.Split('.');
+                                <ul>
+                                    @foreach (var l in listItems) {
+                                        <li>
+                                            @l
+                                        </li>
+                                    }
+                                </ul>
+                            } else if (r.Instructions.Contains("<ol>")) {
+                                var itemCount = Regex.Matches(r.Instructions, "<li>").Count;
+                                var parsedInstructions = r.Instructions.Replace("\n", "").Replace("\r", "");
+                                parsedInstructions = parsedInstructions.Replace("<ol>", "");
+                                parsedInstructions = parsedInstructions.Replace("</li></ol>", "");
+                                parsedInstructions = parsedInstructions.Replace("<li>", "");
+                                parsedInstructions = parsedInstructions.Replace("</li>", ".");
+                                var listItems = parsedInstructions.Split('.');
+                                <ol>
+                                    @foreach (var l in listItems) {
+                                        <li>
+                                            @l
+                                        </li>
+                                    }
+                                </ol>
+                            } else {
+                                Html.DisplayFor(modelItem => r.Instructions);
+                            }
+                        }
                     </td>
                 </tr>
             }
         </tbody>
     </table>
-    @{ 
+    @{
         var prevDisabled = !Model.Recipes.HasPreviousPage ? "disabled" : "";
         var nextDisabled = !Model.Recipes.HasNextPage ? "disabled" : "";
     }

@@ -15,7 +15,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RecipeCollections.DataAcces
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RecipeCollections.Models", "RecipeCollections.Models\RecipeCollections.Models.csproj", "{A5F7EE55-9B1B-4E1D-8B09-D82F7AE42995}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RecipeCollections.Utility", "RecipeCollections.Utility\RecipeCollections.Utility.csproj", "{56CFB22A-02B7-4898-95FA-4BBF7E9518E3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RecipeCollections.Utility", "RecipeCollections.Utility\RecipeCollections.Utility.csproj", "{56CFB22A-02B7-4898-95FA-4BBF7E9518E3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
