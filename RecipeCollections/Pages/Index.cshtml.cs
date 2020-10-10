@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc.RazorPages;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using RecipeCollections.Data;
@@ -27,6 +28,7 @@ namespace RecipeCollections.Pages {
         public string CurrentFilter { get; set; }
         public string CurrentSort { get; set; }
         public PaginatedList<Recipe> Recipes { get; set; }
+        public Dictionary<int, int> AvgReviews { get; set; }
         public async Task OnGetAsync(string sortType, string searchString, string currentFilter, int? pageIndex)
         {
             CurrentSort = sortType;
@@ -47,8 +49,25 @@ namespace RecipeCollections.Pages {
             var recipesIQ = getFilteredSorted(sortType, CurrentFilter);
             int pageSize = 3;
             Recipes = await PaginatedList<Recipe>.CreateAsync(recipesIQ.AsNoTracking(), pageIndex ?? 1, pageSize);
+            AvgReviews = new Dictionary<int, int>();
+            foreach(var r in Recipes) {
+                var reviews = _context.Reviews.Where(rev => rev.RecipeId == r.Id);
+                int totalRevs = reviews.Count();
+                if(totalRevs == 0) {
+                    AvgReviews.Add(r.Id, 0);
+                } else {
+                    int reviewsSum = 0;
+                    foreach(var i in reviews) {
+                        reviewsSum += i.Rating;
+                    }
+                    AvgReviews.Add(r.Id, reviewsSum / totalRevs);
+                }
+            }
         }
-
+  
+        public IActionResult OnPostReview() {
+            return Page();
+        }
 
         private IQueryable<Recipe> getFilteredSorted(string sortType, string filterBy) {
             IQueryable<Recipe> recipesIQ = from r in _context.Recipes

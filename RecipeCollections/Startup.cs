@@ -33,7 +33,10 @@ namespace RecipeCollections {
 
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddRazorPages();
-            services.AddMvc(options => options.EnableEndpointRouting = false);
+            services.AddMvc(options => {
+                options.EnableEndpointRouting = false;
+
+            });
             services.Configure<IdentityOptions>(options => {
                 // Password settings.
                 options.Password.RequireDigit = true;

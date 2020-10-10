@@ -1,4 +1,23 @@
-﻿.customImageSize {
+﻿/*rating code from https://css-tricks.com/star-ratings/ */
+.rating {
+    unicode-bidi: bidi-override;
+    direction: rtl;
+}
+
+.rating > span {
+    display: inline-block;
+    position: relative;
+    width: 1.1em;
+}
+
+.rating > span:hover:before,
+.rating > span:hover ~ span:before {
+    content: "\2605";
+    position: absolute;
+}
+/*===========================================================*/
+
+.customImageSize {
     width: 150px;
     height: 150px;
     max-width: initial;
@@ -6,7 +25,12 @@
 .dropdown-item:focus, .dropdown-item:hover {
     background-color: indianred;
 }
-
+a.far,a.fa-star{
+    color:yellow;
+}
+a.far:hover{
+    
+}
 .table td, .table th{
     padding: .5em;
 }

@@ -45,5 +45,11 @@
 - [x] Pagination, Filtering, Sorting for Admin Recipe
 - [x] Create, Details, Delete link styling 
 - [x] Details instructions
-- [ ] Media query for different screen sizes
 - [x] Add Real Recipes for Demo
+
+### TODO List - Deliverable 3
+- [ ] Media query for different screen sizes
+- [ ] Allow signed in Creators to Post reviews 
+- [ ] Use sessions
+- [ ] Allow creators to post recipes
+- [ ] Allow creators to view only their recipes
