@@ -129,9 +129,9 @@ namespace RecipeCollections.Areas.Identity.Pages.Account
                     //    return RedirectToPage("/Index");
                     //} else {
                         await _signInManager.SignInAsync(user, isPersistent: false);
-                        return RedirectToPage("/Index");
+                        return LocalRedirect(returnUrl);
                     //return LocalRedirect(returnUrl);
-                    
+
                 }
                 foreach (var error in result.Errors) {
                     ModelState.AddModelError(string.Empty, error.Description);
