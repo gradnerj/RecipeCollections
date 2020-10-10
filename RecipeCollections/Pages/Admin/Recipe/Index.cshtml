@@ -74,7 +74,10 @@
                     @{
                         var creator = await UserManager.FindByIdAsync(item.CreatorId);
                     }
-                    @creator.UserName
+                    @if (creator != null) {
+                        @creator.UserName
+                    }
+
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Title)
