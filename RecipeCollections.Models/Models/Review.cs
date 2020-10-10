@@ -17,9 +17,6 @@ namespace RecipeCollections.Models
         [Display(Name ="Recipe Id")]
         public int RecipeId { get; set; }
 
-        [Display(Name = "Comment")]
-        public string Comment { get; set; }
-
         [Display(Name = "Rating")]
         public int Rating { get; set; }
     }
