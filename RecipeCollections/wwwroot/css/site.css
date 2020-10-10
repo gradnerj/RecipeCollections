@@ -7,8 +7,26 @@
 .image-row {
     width : max-content;
 }
+.card{
+    height: 700px;
+}
+.sidebar {
+  position: fixed;
+  top: 57px;
+  bottom: 60px;
+  left: 0;
+  z-index: 100; /* Behind the navbar */
+  padding: 48px 0 0; /* Height of navbar */
+  box-shadow: inset -1px 0 0 rgba(0, 0, 0, .1);
+}
 
+.sidebar-items{
+    margin-left: 10%;
+}
 
+.uniform-img{
+    height: 256px;
+}
 /* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
 for details on configuring this project to bundle and minify static web assets. */
 

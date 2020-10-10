@@ -45,7 +45,7 @@ namespace RecipeCollections.Pages {
             CurrentFilter = searchString;
 
             var recipesIQ = getFilteredSorted(sortType, CurrentFilter);
-            int pageSize = 5;
+            int pageSize = 3;
             Recipes = await PaginatedList<Recipe>.CreateAsync(recipesIQ.AsNoTracking(), pageIndex ?? 1, pageSize);
         }
 
