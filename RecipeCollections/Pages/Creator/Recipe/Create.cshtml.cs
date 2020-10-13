@@ -25,7 +25,7 @@ namespace RecipeCollections.Pages.Creator
         }
 
         [BindProperty]
-        public Recipe Recipe { get; set; }
+        public Models.Recipe Recipe { get; set; }
 
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://aka.ms/RazorPagesCRUD.
