@@ -54,11 +54,13 @@
 	- [ ] Added Details Page
 	- [ ] Added RecentlyViewed Page
 	- [ ] When a user clicks a recipe to view details Add to Session
+- [ ] Add Category CRUD for Admins so Creators can add Recipes that belong to a M-M relationship
 - [ ] Styling
 	- [ ] Update images for Creator Recipe CRUD
 	- [ ] Update instructions for Creator Recipe CRUD
 	- [ ] Media query for different screen sizes
 - [ ] Extra
 	- [ ] Allow signed in Creators to Post reviews, add average rating and stars for new rating
+	- [ ] Add default image for Recipes
 
 
