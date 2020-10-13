@@ -53,7 +53,7 @@
 - [x] Use sessions - I'll add a details page and keep track of recipes they've looked at then display them on another Recently Viewed Page
 	- [ ] Added Details Page
 	- [ ] Added RecentlyViewed Page
-	- [ ] When a user clicks a recipe to view details Add to Session
+	- [x] When a user clicks a recipe to view details Add to Session
 - [ ] Add Category CRUD for Admins so Creators can add Recipes that belong to a M-M relationship
 - [ ] Styling
 	- [ ] Update images for Creator Recipe CRUD
@@ -64,3 +64,4 @@
 	- [ ] Add default image for Recipes
 
 
+Might remove RecentlyViewedModel
