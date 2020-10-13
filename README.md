@@ -48,8 +48,12 @@
 - [x] Add Real Recipes for Demo
 
 ### TODO List - Deliverable 3
+- [x] Allow creators to post recipes
+- [x] Allow creators to view only their recipes
+- [ ] Use sessions, I'll add a details page and keep track of recipes they've looked at then display them on another Recently Viewed Page
+- [ ] Update images for Creator Recipe CRUD
+- [ ] Update instructions for Creator Recipe CRUD
 - [ ] Media query for different screen sizes
-- [ ] Allow signed in Creators to Post reviews 
-- [ ] Use sessions
-- [ ] Allow creators to post recipes
-- [ ] Allow creators to view only their recipes
+- [ ] Allow signed in Creators to Post reviews, add average rating and stars for new rating
+
+
