@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 
-namespace RecipeCollections.Models.Models {
+namespace RecipeCollections.Models {
     public class RecentlyViewed {
 
         public RecentlyViewed() {
