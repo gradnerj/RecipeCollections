@@ -24,7 +24,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Pages\Admin\Category\" />
     <Folder Include="wwwroot\images\recipe_photos\" />
   </ItemGroup>
 
