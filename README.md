@@ -58,10 +58,11 @@
 - [ ] Styling
 	- [ ] Update images for Creator Recipe CRUD
 	- [ ] Update instructions for Creator Recipe CRUD
-	- [ ] Media query for different screen sizes
 - [ ] Extra
 	- [ ] Allow signed in Creators to Post reviews, add average rating and stars for new rating
-	- [ ] Add default image for Recipes
+	- [x] Add default image for Recipes if none is uploaded
+	- [ ] Media query for different screen sizes
+	- [ ] Carousel size
 
 
-Might remove RecentlyViewedModel
+

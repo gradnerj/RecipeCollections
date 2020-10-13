@@ -1,37 +1,32 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
-using RecipeCollections.Data;
-using RecipeCollections.Models;
+using RecipeCollections.DataAccess.Data.Repository.IRepository;
 
-namespace RecipeCollections.Pages.Creator
-{
+namespace RecipeCollections.Pages.Creator {
     public class DetailsModel : PageModel
     {
-        private readonly RecipeCollections.Data.ApplicationDbContext _context;
+        private readonly Data.ApplicationDbContext _context;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public DetailsModel(RecipeCollections.Data.ApplicationDbContext context)
+        public DetailsModel(Data.ApplicationDbContext context, IUnitOfWork unitOfWork)
         {
             _context = context;
+            _unitOfWork = unitOfWork;
         }
 
-        public Recipe Recipe { get; set; }
+        public Models.Recipe Recipe { get; set; }
 
-        public async Task<IActionResult> OnGetAsync(int? id)
-        {
-            if (id == null)
-            {
+        public IActionResult OnGet(int? id) {
+            if (id == null) {
                 return NotFound();
             }
 
-            Recipe = await _context.Recipes.FirstOrDefaultAsync(m => m.Id == id);
+            Recipe = _unitOfWork.Recipe.GetFirstorDefault(m => m.Id == id, "Category");
 
-            if (Recipe == null)
-            {
+
+            if (Recipe == null) {
                 return NotFound();
             }
             return Page();

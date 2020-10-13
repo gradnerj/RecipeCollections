@@ -39,7 +39,7 @@
                         <form asp-page="./Index" method="get">
                             <div class="form-actions">
                                 <input type="text" placeholder="Find by Title or Category" name="SearchString" value="@Model.CurrentFilter" />
-                                <input type="submit" value="Search" class="btn btn-success" />
+                                <input type="submit" value="Search" class="btn btn-success my-3" />
                             </div>
                             <div class="h6 sidebar-items"><a class="sidebar-links" asp-page="./Index">Back to full List</a></div>
                         </form>
@@ -144,7 +144,7 @@
                                                         parsedInstructions = parsedInstructions.Replace("<li>", "");
                                                         parsedInstructions = parsedInstructions.Replace("</li>", ".");
                                                         var listItems = parsedInstructions.Split('.');
-                                                        <ul class="overflow-auto" style="height:150px">
+                                                        <ul class="overflow-auto" style="height:125px">
                                                             @foreach (var l in listItems) {
                                                                 <li>
                                                                     @l
@@ -180,7 +180,7 @@
                         </div>
                     }
                 </div>
-                <div class="row-12 offset-5" style="justify-content:space-evenly; margin-top: 20px;">
+                <div class="row-12 offset-5" style="justify-content:space-evenly; margin-top: 30px;">
                     @{
                         var prevDisabled = !Model.Recipes.HasPreviousPage ? "disabled" : "";
                         var nextDisabled = !Model.Recipes.HasNextPage ? "disabled" : "";

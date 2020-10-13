@@ -12,14 +12,10 @@
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form method="post">
+        <form method="post" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Recipe.Id" />
-            <div class="form-group">
-                <label asp-for="Recipe.CreatorId" class="control-label"></label>
-                <input asp-for="Recipe.CreatorId" class="form-control" />
-                <span asp-validation-for="Recipe.CreatorId" class="text-danger"></span>
-            </div>
+            <input type="hidden" asp-for="Recipe.CreatorId" value="@Model.Recipe.CreatorId" class="form-control" />
             <div class="form-group">
                 <label asp-for="Recipe.Title" class="control-label"></label>
                 <input asp-for="Recipe.Title" class="form-control" />
@@ -27,7 +23,10 @@
             </div>
             <div class="form-group">
                 <label asp-for="Recipe.Category" class="control-label"></label>
-                <input asp-for="Recipe.Category" class="form-control" />
+                @Html.DropDownListFor(m => m.Recipe.CategoryId,
+                                                    Model.CategoryList,
+                                                    " - Please select a category - ",
+                                                    new { @class = "form-control" })
                 <span asp-validation-for="Recipe.Category" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -45,27 +44,40 @@
                 <input asp-for="Recipe.FeedsQty" class="form-control" />
                 <span asp-validation-for="Recipe.FeedsQty" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="Recipe.PhotoPath" class="control-label"></label>
-                <input asp-for="Recipe.PhotoPath" class="form-control" />
-                <span asp-validation-for="Recipe.PhotoPath" class="text-danger"></span>
+            <div class="form-group row image-row">
+                <div class="col">
+                    <label asp-for="Recipe.PhotoPath" class="control-label"></label>
+                    <input style="height:initial" type="file" asp-for="Recipe.PhotoPath" class="form-control" />
+                    <span asp-validation-for="Recipe.PhotoPath" class="text-danger"></span>
+                </div>
+                <div class="col">
+                    <img src="@Model.Recipe.PhotoPath" class="img-thumbnail customImageSize" />
+                    <input type="hidden" asp-for="OldPhotoPath" value="@Model.Recipe.PhotoPath" />
+                </div>
             </div>
             <div class="form-group">
                 <label asp-for="Recipe.Instructions" class="control-label"></label>
-                <input asp-for="Recipe.Instructions" class="form-control" />
+                <textarea asp-for="Recipe.Instructions" class="form-control"></textarea>
                 <span asp-validation-for="Recipe.Instructions" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+                <input type="submit" value="Save" class="btn btn-success" />
             </div>
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-page="./Index">Back to List</a>
+    <a class="btn btn-outline-success" asp-page="./Index">Back to List</a>
 </div>
 
 @section Scripts {
+    <script>
+        tinymce.init({
+            selector: 'textarea',
+            plugins: "lists",
+            menubar: 'file edit format',
+        });
+    </script>
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }

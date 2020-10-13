@@ -13,7 +13,7 @@
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form method="post">
+        <form method="post" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <input type="hidden" asp-for="Recipe.CreatorId" class="form-control" value="@UserManager.GetUserId(User)" />
             <div class="form-group">
@@ -23,7 +23,10 @@
             </div>
             <div class="form-group">
                 <label asp-for="Recipe.Category" class="control-label"></label>
-                <input asp-for="Recipe.Category" class="form-control" />
+                @Html.DropDownListFor(m => m.Recipe.CategoryId,
+                                                   Model.CategoryList,
+                                                   " - Please select a category - ",
+                                                   new { @class = "form-control" })
                 <span asp-validation-for="Recipe.Category" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -43,12 +46,12 @@
             </div>
             <div class="form-group">
                 <label asp-for="Recipe.PhotoPath" class="control-label"></label>
-                <input asp-for="Recipe.PhotoPath" class="form-control" />
+                <input type="file" style="height:initial" asp-for="Recipe.PhotoPath" class="form-control" />
                 <span asp-validation-for="Recipe.PhotoPath" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Recipe.Instructions" class="control-label"></label>
-                <input asp-for="Recipe.Instructions" class="form-control" />
+                <textarea id="tinymce_instructions" asp-for="Recipe.Instructions" class="form-control"></textarea>
                 <span asp-validation-for="Recipe.Instructions" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -63,5 +66,12 @@
 </div>
 
 @section Scripts {
+    <script>
+        tinymce.init({
+            selector: 'textarea',
+            plugins: "lists",
+            menubar: 'file edit format',
+        });
+    </script>
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }
