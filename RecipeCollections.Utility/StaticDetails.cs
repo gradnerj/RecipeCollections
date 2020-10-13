@@ -3,5 +3,6 @@
         public const string AdminRole = "Admin";
         public const string CreatorRole = "Creator";
         public const string RecentlyViewed = "RecentlyViewed";
+        public const string RecentlyViewedCount = "RecentlyViewedCount";
     }
 }
