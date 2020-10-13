@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using RecipeCollections.Models;
+using RecipeCollections.Models.Models;
 
 namespace RecipeCollections.Data
 {
@@ -17,5 +18,6 @@ namespace RecipeCollections.Data
         
         public DbSet<Review> Reviews { get; set; }
         public DbSet<ApplicationUser> ApplicationUsers { get; set; }
+        public DbSet<RecentlyViewed> RecentlyViewed { get; set; }
     }
 }
