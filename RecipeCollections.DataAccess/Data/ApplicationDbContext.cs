@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using RecipeCollections.Models;
-using RecipeCollections.Models.Models;
+
 
 namespace RecipeCollections.Data
 {
