@@ -7,8 +7,9 @@ namespace RecipeCollections.Models {
     public class RecentlyViewed {
 
         public RecentlyViewed() {
-
+            Count = 1;
         }
+        public int Count { get; set; }
         public int Id { get; set; }
         public int RecipeId { get; set; }
         public string ApplicationUserId { get; set; }
