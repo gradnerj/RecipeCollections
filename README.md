@@ -51,7 +51,7 @@
 - [x] Allow creators to post recipes
 - [x] Allow creators to view only their recipes
 - [x] Use sessions - I'll add a details page and keep track of recipes they've looked at then display them on another Recently Viewed Page
-	- [ ] Added Details Page
+	- [x] Added Details Page
 	- [ ] Added RecentlyViewed Page
 	- [x] When a user clicks a recipe to view details Add to Session
 - [ ] Add Category CRUD for Admins so Creators can add Recipes that belong to a M-M relationship

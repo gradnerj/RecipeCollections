@@ -1,0 +1,107 @@
+﻿@page
+@using System.Text.RegularExpressions
+@model RecipeCollections.Pages.RecentlyViewedModel
+@{
+}
+<div class="container-fluid">
+    <a class="btn btn-success mb-3" asp-page="/Index">Back to Home</a>
+    <div class="row">
+        <div class="col">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>
+                            Photo
+                        </th>
+                        <th>
+                            Title
+                        </th>
+                        <th>
+                            Avg. Rating
+                        </th>
+                        <th>
+                            Category
+                        </th>
+                        <th>
+                            Prep. Time
+                        </th>
+                        <th>
+                            Cook. Time
+                        </th>
+                        <th>
+                            Servings
+                        </th>
+                        <th>
+                            Instructions
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var r in Model.RecipeList) {
+                    <tr>
+                        <td>
+                            <img src="@r.PhotoPath" class="img-thumbnail customImageSize" />
+                        </td>
+                        <td>
+                            @r.Title
+                        </td>
+                        <td>
+                            rating
+                        </td>
+                        <td>
+                            @r.Category
+                        </td>
+                        <td>
+                            @r.PrepTime
+                        </td>
+                        <td>
+                            @r.CookTime
+                        </td>
+                        <td>
+                            @r.FeedsQty
+                        </td>
+                        <td>
+                            @if (r.Instructions.Contains("<ul>")) {
+                                var itemCount = Regex.Matches(r.Instructions, "<li>").Count;
+                                var parsedInstructions = r.Instructions.Replace("\n", "").Replace("\r", "");
+                                parsedInstructions = parsedInstructions.Replace("<ul>", "");
+                                parsedInstructions = parsedInstructions.Replace("</li></ul>", "");
+                                parsedInstructions = parsedInstructions.Replace("<li>", "");
+                                parsedInstructions = parsedInstructions.Replace("</li>", ".");
+                                var listItems = parsedInstructions.Split('.');
+                                <ul class="overflow-auto" style="max-height:400px">
+                                    @foreach (var l in listItems) {
+                                        <li>
+                                            @l
+                                        </li>
+                                    }
+                                </ul>
+                            } else if (r.Instructions.Contains("<ol>")) {
+                                var itemCount = Regex.Matches(r.Instructions, "<li>").Count;
+                                var parsedInstructions = r.Instructions.Replace("\n", "").Replace("\r", "");
+                                parsedInstructions = parsedInstructions.Replace("<ol>", "");
+                                parsedInstructions = parsedInstructions.Replace("</li></ol>", "");
+                                parsedInstructions = parsedInstructions.Replace("<li>", "");
+                                parsedInstructions = parsedInstructions.Replace("</li>", ".");
+                                var listItems = parsedInstructions.Split('.');
+                                <ol class="overflow-auto" style="max-height:400px">
+                                    @foreach (var l in listItems) {
+                                        <li>
+                                            @l
+                                        </li>
+                                    }
+                                </ol>
+                            } else {
+                                var parsedInstructions = r.Instructions.Replace("<p>", "").Replace("</p>", "");
+                                <p class="card-text">
+                                    @parsedInstructions
+                                </p>
+                            }
+                        </td>
+                    </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
