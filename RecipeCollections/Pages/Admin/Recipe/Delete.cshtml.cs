@@ -4,32 +4,32 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
+using RecipeCollections.DataAccess.Data.Repository.IRepository;
 
 namespace RecipeCollections.Pages.Admin.Recipe {
     public class DeleteModel : PageModel
     {
         private readonly Data.ApplicationDbContext _context;
         private readonly IWebHostEnvironment _hostEnvironment;
-        public DeleteModel(Data.ApplicationDbContext context, IWebHostEnvironment hostEnvironment)
+        private readonly IUnitOfWork _unitOfWork;
+        public DeleteModel(Data.ApplicationDbContext context, IWebHostEnvironment hostEnvironment, IUnitOfWork unitOfWork)
         {
             _context = context;
             _hostEnvironment = hostEnvironment;
+            _unitOfWork = unitOfWork;
         }
 
         [BindProperty]
         public Models.Recipe Recipe { get; set; }
 
-        public async Task<IActionResult> OnGetAsync(int? id)
-        {
-            if (id == null)
-            {
+        public IActionResult OnGet(int? id) {
+            if (id == null) {
                 return NotFound();
             }
 
-            Recipe = await _context.Recipes.FirstOrDefaultAsync(m => m.Id == id);
+            Recipe = _unitOfWork.Recipe.GetFirstorDefault(m => m.Id == id, "Category");
 
-            if (Recipe == null)
-            {
+            if (Recipe == null) {
                 return NotFound();
             }
             return Page();

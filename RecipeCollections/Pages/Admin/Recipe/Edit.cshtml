@@ -27,7 +27,10 @@
             </div>
             <div class="form-group">
                 <label asp-for="Recipe.Category" class="control-label"></label>
-                <input asp-for="Recipe.Category" class="form-control" />
+                @Html.DropDownListFor(m => m.Recipe.CategoryId,
+                                                   Model.CategoryList,
+                                                   " - Please select a category - ",
+                                                   new { @class = "form-control" })
                 <span asp-validation-for="Recipe.Category" class="text-danger"></span>
             </div>
             <div class="form-group">

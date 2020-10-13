@@ -5,16 +5,18 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using RecipeCollections.Data;
+using RecipeCollections.DataAccess.Data.Repository.IRepository;
 using RecipeCollections.Utility;
 
 namespace RecipeCollections.Pages.Admin.Recipe {
     public class IndexModel : PageModel
     {
         private readonly ApplicationDbContext _context;
-
-        public IndexModel(ApplicationDbContext context)
+        private readonly IUnitOfWork _unitOfWork;
+        public IndexModel(ApplicationDbContext context, IUnitOfWork unitOfWork)
         {
             _context = context;
+            _unitOfWork = unitOfWork;
         }
         public string TitleSort { get; set; }
         public string CategorySort { get; set; }
@@ -48,8 +50,7 @@ namespace RecipeCollections.Pages.Admin.Recipe {
         }
 
         private IQueryable<Models.Recipe> getFilteredSorted(string sortType, string filterBy) {
-            IQueryable<Models.Recipe> recipesIQ = from r in _context.Recipes
-                                           select r;
+            IQueryable<Models.Recipe> recipesIQ = _unitOfWork.Recipe.GetAll(null, null,"Category");
 
             if (!String.IsNullOrEmpty(filterBy)) {
                 recipesIQ = recipesIQ.Where(r => r.Title.Contains(filterBy) || r.Category.Name.Contains(filterBy));
@@ -59,10 +60,10 @@ namespace RecipeCollections.Pages.Admin.Recipe {
                     recipesIQ = recipesIQ.OrderByDescending(r => r.Title);
                     return recipesIQ;
                 case "category_desc":
-                    recipesIQ = recipesIQ.OrderByDescending(r => r.Category);
+                    recipesIQ = recipesIQ.OrderByDescending(r => r.Category.Name);
                     return recipesIQ;
                 case "Category":
-                    recipesIQ = recipesIQ.OrderBy(r => r.Category);
+                    recipesIQ = recipesIQ.OrderBy(r => r.Category.Name);
                     return recipesIQ;
                 case "preptime_desc":
                     recipesIQ = recipesIQ.OrderByDescending(r => r.PrepTime);

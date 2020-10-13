@@ -1,40 +1,45 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using RecipeCollections.DataAccess.Data.Repository.IRepository;
 
 namespace RecipeCollections.Pages.Admin.Recipe {
     public class EditModel : PageModel
     {
         private readonly Data.ApplicationDbContext _context;
         private readonly IWebHostEnvironment _hostEnvironment;
-        public EditModel(Data.ApplicationDbContext context, IWebHostEnvironment hostEnvironment)
+        private readonly IUnitOfWork _unitOfWork;
+        public EditModel(Data.ApplicationDbContext context, IWebHostEnvironment hostEnvironment, IUnitOfWork unitOfWork)
         {
             _context = context;
             _hostEnvironment = hostEnvironment;
+            _unitOfWork = unitOfWork;
         }
 
         [BindProperty]
         public Models.Recipe Recipe { get; set; }
         [BindProperty]
         public string OldPhotoPath { get; set; }
-        public async Task<IActionResult> OnGetAsync(int? id)
-        {
-            if (id == null)
-            {
+        public IEnumerable<SelectListItem> CategoryList { get; set; }
+        public IActionResult OnGet(int? id) {
+            if (id == null) {
                 return NotFound();
             }
 
-            Recipe = await _context.Recipes.FirstOrDefaultAsync(m => m.Id == id);
+            Recipe = _unitOfWork.Recipe.GetFirstorDefault(m => m.Id == id, "Category");
 
-            if (Recipe == null)
-            {
+            if (Recipe == null) {
                 return NotFound();
             }
+            CategoryList = _unitOfWork.Category.GetCategoryListForDropDown();
+            
             return Page();
         }
 
