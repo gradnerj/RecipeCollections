@@ -82,101 +82,101 @@
                     @foreach (var r in Model.Recipes) {
                         <div class="col">
                             <div class="card" style="width: 18rem;">
-                                <img class="card-img-top uniform-img" src="@r.PhotoPath" alt="Card image cap">
-                                <div class="card-body  px-0" style="padding-bottom:0px;">
+                                <a asp-page="/Details" asp-route-id="@r.Id"><img class="card-img-top uniform-img" src="@r.PhotoPath" alt="Card image cap"></a>
+                                    <div class="card-body  px-0" style="padding-bottom:0px;">
 
-                                    <table class="table">
-                                        <thead>
+                                        <table class="table">
+                                            <thead>
+                                                <tr>
+                                                    <th colspan="2" class="card-title"><a asp-page="/Details" asp-route-id="@r.Id">@Html.DisplayFor(modelItem => r.Title)</a></th>
+                                                </tr>
+                                                <tr>
+                                                    <td class="rating">
+                                                        @{
+                                                            var avg = Model.AvgReviews[r.Id];
+                                                            var leftOver = 5 - avg;
+
+                                                            for (var i = 0; i < leftOver; i++) {
+                                                                <span style="color:indianred;" class="review-star">&#9734;</span>
+                                                            }
+                                                            for (var i = 0; i < avg; i++) {
+                                                                <span style="color:indianred;" class="review-star">&#9733;</span>
+                                                            }
+
+                                                        }
+                                                    </td>
+                                                </tr>
+                                            </thead>
                                             <tr>
-                                                <th colspan="2" class="card-title">@Html.DisplayFor(modelItem => r.Title)</th>
+                                                <th scope="row">
+                                                    Catgegory
+                                                </th>
+                                                <td class="card-text">@Html.DisplayFor(modelItem => r.Category)</td>
                                             </tr>
                                             <tr>
-                                                <td class="rating">
-                                                    @{
-                                                        var avg = Model.AvgReviews[r.Id];
-                                                        var leftOver = 5 - avg;
-                                                       
-                                                        for (var i = 0; i < leftOver; i++) {
-                                                            <span style="color:indianred;" class="review-star">&#9734;</span>
-                                                        }
-                                                        for (var i = 0; i < avg; i++) {
-                                                            <span style="color:indianred;" class="review-star">&#9733;</span>
-                                                        }
-
+                                                <th scope="row">
+                                                    Prep. Time
+                                                </th>
+                                                <td><p class="card-text">@Html.DisplayFor(modelItem => r.PrepTime) min.</p></td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row">
+                                                    Cook. Time
+                                                </th>
+                                                <td><p class="card-text">@Html.DisplayFor(modelItem => r.CookTime) min.</p></td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row">
+                                                    Feeds Qty.
+                                                </th>
+                                                <td><p class="card-text">@Html.DisplayFor(modelItem => r.FeedsQty)</p></td>
+                                            </tr>
+                                            <tr>
+                                                <th colspan="2" class="text-center">Instructions</th>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="2">
+                                                    @if (r.Instructions.Contains("<ul>")) {
+                                                        var itemCount = Regex.Matches(r.Instructions, "<li>").Count;
+                                                        var parsedInstructions = r.Instructions.Replace("\n", "").Replace("\r", "");
+                                                        parsedInstructions = parsedInstructions.Replace("<ul>", "");
+                                                        parsedInstructions = parsedInstructions.Replace("</li></ul>", "");
+                                                        parsedInstructions = parsedInstructions.Replace("<li>", "");
+                                                        parsedInstructions = parsedInstructions.Replace("</li>", ".");
+                                                        var listItems = parsedInstructions.Split('.');
+                                                        <ul class="overflow-auto" style="height:150px">
+                                                            @foreach (var l in listItems) {
+                                                                <li>
+                                                                    @l
+                                                                </li>
+                                                            }
+                                                        </ul>
+                                                    } else if (r.Instructions.Contains("<ol>")) {
+                                                        var itemCount = Regex.Matches(r.Instructions, "<li>").Count;
+                                                        var parsedInstructions = r.Instructions.Replace("\n", "").Replace("\r", "");
+                                                        parsedInstructions = parsedInstructions.Replace("<ol>", "");
+                                                        parsedInstructions = parsedInstructions.Replace("</li></ol>", "");
+                                                        parsedInstructions = parsedInstructions.Replace("<li>", "");
+                                                        parsedInstructions = parsedInstructions.Replace("</li>", ".");
+                                                        var listItems = parsedInstructions.Split('.');
+                                                        <ol class="overflow-auto" style="height:125px">
+                                                            @foreach (var l in listItems) {
+                                                                <li>
+                                                                    @l
+                                                                </li>
+                                                            }
+                                                        </ol>
+                                                    } else {
+                                                        var parsedInstructions = r.Instructions.Replace("<p>", "").Replace("</p>", "");
+                                                        <p class="card-text">
+                                                            @parsedInstructions
+                                                        </p>
                                                     }
                                                 </td>
                                             </tr>
-                                        </thead>
-                                        <tr>
-                                            <th scope="row">
-                                                Catgegory
-                                            </th>
-                                            <td class="card-text">@Html.DisplayFor(modelItem => r.Category)</td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row">
-                                                Prep. Time
-                                            </th>
-                                            <td><p class="card-text">@Html.DisplayFor(modelItem => r.PrepTime) min.</p></td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row">
-                                                Cook. Time
-                                            </th>
-                                            <td><p class="card-text">@Html.DisplayFor(modelItem => r.CookTime) min.</p></td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row">
-                                                Feeds Qty.
-                                            </th>
-                                            <td><p class="card-text">@Html.DisplayFor(modelItem => r.FeedsQty)</p></td>
-                                        </tr>
-                                        <tr>
-                                            <th colspan="2" class="text-center">Instructions</th>
-                                        </tr>
-                                        <tr>
-                                            <td colspan="2">
-                                                @if (r.Instructions.Contains("<ul>")) {
-                                                    var itemCount = Regex.Matches(r.Instructions, "<li>").Count;
-                                                    var parsedInstructions = r.Instructions.Replace("\n", "").Replace("\r", "");
-                                                    parsedInstructions = parsedInstructions.Replace("<ul>", "");
-                                                    parsedInstructions = parsedInstructions.Replace("</li></ul>", "");
-                                                    parsedInstructions = parsedInstructions.Replace("<li>", "");
-                                                    parsedInstructions = parsedInstructions.Replace("</li>", ".");
-                                                    var listItems = parsedInstructions.Split('.');
-                                                    <ul class="overflow-auto" style="height:150px">
-                                                        @foreach (var l in listItems) {
-                                                            <li>
-                                                                @l
-                                                            </li>
-                                                        }
-                                                    </ul>
-                                                } else if (r.Instructions.Contains("<ol>")) {
-                                                    var itemCount = Regex.Matches(r.Instructions, "<li>").Count;
-                                                    var parsedInstructions = r.Instructions.Replace("\n", "").Replace("\r", "");
-                                                    parsedInstructions = parsedInstructions.Replace("<ol>", "");
-                                                    parsedInstructions = parsedInstructions.Replace("</li></ol>", "");
-                                                    parsedInstructions = parsedInstructions.Replace("<li>", "");
-                                                    parsedInstructions = parsedInstructions.Replace("</li>", ".");
-                                                    var listItems = parsedInstructions.Split('.');
-                                                    <ol class="overflow-auto" style="height:125px">
-                                                        @foreach (var l in listItems) {
-                                                            <li>
-                                                                @l
-                                                            </li>
-                                                        }
-                                                    </ol>
-                                                } else {
-                                                    var parsedInstructions = r.Instructions.Replace("<p>", "").Replace("</p>", "");
-                                                    <p class="card-text">
-                                                        @parsedInstructions
-                                                    </p>
-                                                }
-                                            </td>
-                                        </tr>
-                                    </table>
-                                </div>
-                            </div>
+                                        </table>
+                                    </div>
+</div>
                         </div>
                     }
                 </div>
