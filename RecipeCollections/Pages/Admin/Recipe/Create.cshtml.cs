@@ -5,26 +5,34 @@ using RecipeCollections.Data;
 using Microsoft.AspNetCore.Hosting;
 using System.IO;
 using System;
+using RecipeCollections.DataAccess.Data.Repository.IRepository;
+using System.Collections.Generic;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace RecipeCollections.Pages.Admin.Recipe {
-    public class CreateModel : PageModel
-    {
+    public class CreateModel : PageModel {
         private readonly ApplicationDbContext _context;
         private readonly IWebHostEnvironment _hostEnvironment;
-        public CreateModel(ApplicationDbContext context, IWebHostEnvironment hostEnvironment)
-        {
+        private readonly IUnitOfWork _unitofWork;
+        public CreateModel(ApplicationDbContext context, IWebHostEnvironment hostEnvironment, IUnitOfWork unitOfWork) {
             _context = context;
             _hostEnvironment = hostEnvironment;
+            _unitofWork = unitOfWork;
         }
+
+        public IEnumerable<SelectListItem> CategoryList { get; set; }
 
         public IActionResult OnGet()
         {
+            CategoryList = _unitofWork.Category.GetCategoryListForDropDown();
+
             return Page();
         }
 
         [BindProperty]
         public Models.Recipe Recipe { get; set; }
 
+       
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://aka.ms/RazorPagesCRUD.
         public async Task<IActionResult> OnPostAsync()

@@ -9,7 +9,7 @@ namespace RecipeCollections.DataAccess.Data.Repository.IRepository {
         T Get(int id);
 
         //Get All Objects
-        IEnumerable<T> GetAll(
+        IQueryable<T> GetAll(
             Expression<Func<T, bool>> filter = null,
             Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null,
             //Comma Delimited String

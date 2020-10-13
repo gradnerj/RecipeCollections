@@ -22,7 +22,7 @@ namespace RecipeCollections.DataAccess.Data.Repository {
             return dbset.Find(id);
         }
 
-        public IEnumerable<T> GetAll(Expression<Func<T, bool>> filter = null, Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null, string includeProperties = null) {
+        public IQueryable<T> GetAll(Expression<Func<T, bool>> filter = null, Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null, string includeProperties = null) {
             IQueryable<T> query = dbset;
             if (filter != null) {
                 query = query.Where(filter);
@@ -34,9 +34,9 @@ namespace RecipeCollections.DataAccess.Data.Repository {
                 }
             }
             if (orderBy != null) {
-                return orderBy(query).ToList();
+                return orderBy(query);
             } else {
-                return query.ToList();
+                return query;
             }
         }
 

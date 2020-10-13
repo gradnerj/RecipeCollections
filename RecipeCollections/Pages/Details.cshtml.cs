@@ -2,14 +2,15 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using RecipeCollections.Data;
+using RecipeCollections.DataAccess.Data.Repository.IRepository;
 using RecipeCollections.Utility;
 
 namespace RecipeCollections.Pages {
     public class DetailsModel : PageModel
     {
-        private readonly ApplicationDbContext _context;
-        public DetailsModel(ApplicationDbContext context) {
-            _context = context;
+        private readonly IUnitOfWork _unitOfWork;
+        public DetailsModel(IUnitOfWork unitOfWork) {
+            _unitOfWork = unitOfWork;
         }
         public Models.Recipe Recipe { get; set; }
         public void OnGet(int id)
@@ -32,7 +33,7 @@ namespace RecipeCollections.Pages {
 
             HttpContext.Session.Set(StaticDetails.RecentlyViewed, recipeid_list);
             HttpContext.Session.Set(StaticDetails.RecentlyViewedCount, recent_count);
-            Recipe = _context.Recipes.Where(r => r.Id == id).FirstOrDefault();
+            Recipe = _unitOfWork.Recipe.GetFirstorDefault(r => r.Id == id,  "Category");
         }
     }
 }
