@@ -8,6 +8,7 @@ namespace RecipeCollections.DataAccess.Data.Repository.IRepository {
         IReviewRepository Review { get; }
 
         IApplicationUserRepository ApplicationUser { get; }
+        IRecentlyViewedRepository RecentlyViewed { get; }
         void Save();
     }
 }
