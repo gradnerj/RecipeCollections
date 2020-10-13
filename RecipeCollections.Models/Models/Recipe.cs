@@ -1,4 +1,5 @@
 ﻿
+using RecipeCollections.Models.Models;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -9,7 +10,6 @@ namespace RecipeCollections.Models
     {
 
         [Key]
-        [Display(Name = "Id")]
         public int Id { get; set; }
 
         [ForeignKey("ApplicationUser")]
@@ -20,7 +20,10 @@ namespace RecipeCollections.Models
         public string Title { get; set; }
 
         [Display(Name ="Category")]
-        public string Category { get; set; }
+        public int CategoryId { get; set; }
+
+        [ForeignKey("CategoryId")]
+        public virtual Category Category { get; set; }
 
         [Display(Name = "Prep. Time")]
         public int PrepTime { get; set; }

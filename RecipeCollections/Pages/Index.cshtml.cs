@@ -74,7 +74,7 @@ namespace RecipeCollections.Pages {
                                            select r;
 
             if (!String.IsNullOrEmpty(filterBy)) {
-                recipesIQ = recipesIQ.Where(r => r.Title.Contains(filterBy) || r.Category.Contains(filterBy));
+                recipesIQ = recipesIQ.Where(r => r.Title.Contains(filterBy) || r.Category.Name.Contains(filterBy));
             }
             switch (sortType) {
                 case "title_desc":
