@@ -21,7 +21,7 @@ namespace RecipeCollections.Pages.Admin.Recipe {
 
         [BindProperty]
         public Models.Recipe Recipe { get; set; }
-
+       
         public async Task<IActionResult> OnGetAsync(int? id) {
             if (id == null) {
                 return NotFound();

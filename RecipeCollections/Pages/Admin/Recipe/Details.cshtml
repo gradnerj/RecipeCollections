@@ -25,10 +25,14 @@
                 @Html.DisplayFor(model => model.Recipe.Title)
             </dd>
             <dt class="col-sm-2">
-               @* @Html.DisplayNameFor(model => model.Recipe.Category)*@
+               Categories
             </dt>
             <dd class="col-sm-10">
-              @*  @Html.DisplayFor(model => model.Recipe.Category.Name)*@
+                @{
+                    foreach (var category in Model.Recipe.RecipeCategories) {
+                        @category.Category.Name <br />
+                    }
+                }
             </dd>
             <dt class="col-sm-2">
                 @Html.DisplayNameFor(model => model.Recipe.PrepTime)
