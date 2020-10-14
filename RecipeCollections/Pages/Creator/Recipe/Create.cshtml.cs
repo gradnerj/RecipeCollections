@@ -10,10 +10,11 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using RecipeCollections.Data;
 using RecipeCollections.DataAccess.Data.Repository.IRepository;
 using RecipeCollections.Models;
+using RecipeCollections.Pages.Admin.Recipe;
 
 namespace RecipeCollections.Pages.Creator
 {
-    public class CreateModel : PageModel
+    public class CreateModel : RecipeCategoriesPageModel
     {
         private readonly RecipeCollections.Data.ApplicationDbContext _context;
         private readonly IUnitOfWork _unitofWork;
@@ -24,10 +25,13 @@ namespace RecipeCollections.Pages.Creator
             _context = context;
             _unitofWork = unitOfWork;
         }
-        public IEnumerable<SelectListItem> CategoryList { get; set; }
         public IActionResult OnGet()
         {
-            CategoryList = _unitofWork.Category.GetCategoryListForDropDown();
+            var recipe = new Models.Recipe();
+            recipe.RecipeCategories = new List<RecipeCategory>();
+            PopulateRecipeCategories(_context, recipe);
+
+
             return Page();
         }
 
@@ -36,12 +40,23 @@ namespace RecipeCollections.Pages.Creator
 
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://aka.ms/RazorPagesCRUD.
-        public async Task<IActionResult> OnPostAsync()
+        public async Task<IActionResult> OnPostAsync(string[] selectedCategories)
         {
             if (!ModelState.IsValid)
             {
                 return Page();
             }
+
+            if (selectedCategories != null) {
+                Recipe.RecipeCategories = new List<RecipeCategory>();
+                foreach (var cat in selectedCategories) {
+                    var catToAdd = new RecipeCategory {
+                        CategoryId = int.Parse(cat)
+                    };
+                    Recipe.RecipeCategories.Add(catToAdd);
+                }
+            }
+
             string webRootPath = _hostEnvironment.WebRootPath;
             var files = HttpContext.Request.Form.Files;
             if (files.Count > 0) {

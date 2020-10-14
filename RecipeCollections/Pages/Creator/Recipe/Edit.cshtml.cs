@@ -11,10 +11,11 @@ using Microsoft.EntityFrameworkCore;
 using RecipeCollections.Data;
 using RecipeCollections.DataAccess.Data.Repository.IRepository;
 using RecipeCollections.Models;
+using RecipeCollections.Pages.Admin.Recipe;
 
 namespace RecipeCollections.Pages.Creator
 {
-    public class EditModel : PageModel
+    public class EditModel : RecipeCategoriesPageModel
     {
         private readonly RecipeCollections.Data.ApplicationDbContext _context;
         private readonly IWebHostEnvironment _hostEnvironment;
@@ -30,7 +31,7 @@ namespace RecipeCollections.Pages.Creator
         public Models.Recipe Recipe { get; set; }
         [BindProperty]
         public string OldPhotoPath { get; set; }
-        public IEnumerable<SelectListItem> CategoryList { get; set; }
+       // public IEnumerable<SelectListItem> CategoryList { get; set; }
         public async Task<IActionResult> OnGetAsync(int? id)
         {
             if (id == null)
@@ -38,24 +39,29 @@ namespace RecipeCollections.Pages.Creator
                 return NotFound();
             }
 
-            Recipe =  _unitOfWork.Recipe.GetFirstorDefault(m => m.Id == id, "Category");
+            Recipe = await _context.Recipes
+                 .Include(r => r.RecipeCategories)
+                     .ThenInclude(r => r.Category).FirstOrDefaultAsync(m => m.Id == id);
 
-            if (Recipe == null)
-            {
+            if (Recipe == null) {
                 return NotFound();
             }
-            CategoryList = _unitOfWork.Category.GetCategoryListForDropDown();
+            PopulateRecipeCategories(_context, Recipe);
+            //CategoryList = _unitOfWork.Category.GetCategoryListForDropDown();
             return Page();
         }
 
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://aka.ms/RazorPagesCRUD.
-        public async Task<IActionResult> OnPostAsync()
+        public async Task<IActionResult> OnPostAsync(int? id, string[] selectedCategories)
         {
             if (!ModelState.IsValid)
             {
                 return Page();
             }
+            var recipeToUpdate = await _context.Recipes
+                .Include(r => r.RecipeCategories)
+                    .ThenInclude(r => r.Category).FirstOrDefaultAsync(c => c.Id == id);
             string webRootPath = _hostEnvironment.WebRootPath;
             var files = HttpContext.Request.Form.Files;
 
@@ -73,12 +79,22 @@ namespace RecipeCollections.Pages.Creator
                 using (var fileStream = System.IO.File.Create(fullpath)) {
                     files[0].CopyTo(fileStream);
                 }
-                Recipe.PhotoPath = @"\images\recipe_photos\" + fileName + extension;
+                recipeToUpdate.PhotoPath = @"\images\recipe_photos\" + fileName + extension;
             } else if (OldPhotoPath != null) {
-                Recipe.PhotoPath = OldPhotoPath;
+                recipeToUpdate.PhotoPath = OldPhotoPath;
             }
-            _context.Attach(Recipe).State = EntityState.Modified;
+            //_context.Attach(Recipe).State = EntityState.Modified;
+            if (await TryUpdateModelAsync<Models.Recipe>(
+                 recipeToUpdate,
+                 "Recipe",
+                 r => r.Title, r => r.PrepTime,
+                 r => r.CookTime, r => r.FeedsQty,
+                 r => r.Instructions)) {
 
+                UpdateRecipeCategories(_context, selectedCategories, recipeToUpdate);
+                await _context.SaveChangesAsync();
+                return RedirectToPage("./Index");
+            }
             try
             {
                 await _context.SaveChangesAsync();

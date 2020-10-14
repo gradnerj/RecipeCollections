@@ -15,15 +15,18 @@ namespace RecipeCollections.Pages.Creator {
             _context = context;
             _unitOfWork = unitOfWork;
         }
-
+        [BindProperty]
         public Models.Recipe Recipe { get; set; }
 
-        public IActionResult OnGet(int? id) {
+        public async Task<IActionResult> OnGetAsync(int? id) {
             if (id == null) {
                 return NotFound();
             }
 
-            Recipe = _unitOfWork.Recipe.GetFirstorDefault(m => m.Id == id, "Category");
+            Recipe = await _context.Recipes
+               .Include(r => r.RecipeCategories)
+               .ThenInclude(r => r.Category)
+               .SingleAsync(r => r.Id == id);
 
 
             if (Recipe == null) {

@@ -45,11 +45,12 @@
                         @Html.DisplayNameFor(model => model.Recipes[0].Title)
                     </a>
                 </li>
-                <li class="sidebar-items">
+                <!--<li class="sidebar-items">-->
                     @*<a class="sidebar-links" asp-page="./Index" asp-route-sortType="@Model.CategorySort" asp-route-currentFilter="@Model.CurrentFilter">
                         @Html.DisplayNameFor(model => model.Recipes[0].Category)
                     </a>*@
-                </li>
+                    <!--Categories
+                </li>-->
                 <li class="sidebar-items">
                     <a class="sidebar-links" asp-page="./Index" asp-route-sortType="@Model.PrepTimeSort" asp-route-currentFilter="@Model.CurrentFilter">
                         @Html.DisplayNameFor(model => model.Recipes[0].PrepTime)
@@ -74,7 +75,7 @@
     <div class="row pl-4">
         @foreach (var r in Model.Recipes) {
             <div class="col">
-                <div class="card" style="width: 18rem;">
+                <div class="card" style="width: 19rem;">
                     <a asp-page="/Details" asp-route-id="@r.Id"><img class="card-img-top uniform-img" src="@r.PhotoPath" alt="Card image cap"></a>
                         <div class="card-body  px-0" style="padding-bottom:0px;">
                             <table class="table">
@@ -101,9 +102,24 @@
                                 </thead>
                                 <tr>
                                     <th scope="row">
-                                        Catgegory
+                                        Categories
                                     </th>
                                     @*<td class="card-text">@Html.DisplayFor(modelItem => r.Category.Name)</td>*@
+                                    <td class="card-text" style="font-size:12px">
+                                    @{
+                                        int index = 0;
+                                        int count = r.RecipeCategories.Count;
+                                        foreach (var category in r.RecipeCategories) {
+                                            if (index < count-1) {
+                                                @(category.Category.Name + ", ")
+                                            } else {
+                                                @category.Category.Name
+                                            }
+                                            index++;
+
+                                        }
+                                    }
+                                    </td>
                                 </tr>
                                 <tr>
                                     <th scope="row">

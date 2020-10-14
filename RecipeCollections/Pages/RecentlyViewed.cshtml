@@ -20,7 +20,7 @@
                             Avg. Rating
                         </th>
                         <th>
-                            Category
+                            Categories
                         </th>
                         <th>
                             Prep. Time
@@ -49,7 +49,18 @@
                             rating
                         </td>
                         <td>
-                           @* @r.Category.Name*@
+                            @{
+                                int index = 0;
+                                int count = r.RecipeCategories.Count;
+                                foreach (var cat in r.RecipeCategories) {
+                                    if (index < count - 1) {
+                                        @(cat.Category.Name + ", ")
+                                    } else {
+                                        @cat.Category.Name
+                                    }
+                                    index++;
+                                }
+                            }
                         </td>
                         <td>
                             @r.PrepTime

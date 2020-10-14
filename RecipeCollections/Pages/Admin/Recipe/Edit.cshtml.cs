@@ -28,14 +28,14 @@ namespace RecipeCollections.Pages.Admin.Recipe {
         [BindProperty]
         public string OldPhotoPath { get; set; }
         //public IEnumerable<SelectListItem> CategoryList { get; set; }
-        public IActionResult OnGet(int? id) {
+        public async Task<IActionResult> OnGetAsync(int? id) {
             if (id == null) {
                 return NotFound();
             }
 
-            Recipe = _context.Recipes
+            Recipe = await  _context.Recipes
                 .Include(r => r.RecipeCategories)
-                    .ThenInclude(r => r.Category).FirstOrDefault(m => m.Id == id);
+                    .ThenInclude(r => r.Category).FirstOrDefaultAsync(m => m.Id == id);
 
             if (Recipe == null) {
                 return NotFound();

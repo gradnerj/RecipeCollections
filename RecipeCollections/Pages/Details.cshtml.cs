@@ -1,6 +1,6 @@
 using System.Collections.Generic;
-using System.Linq;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.EntityFrameworkCore;
 using RecipeCollections.Data;
 using RecipeCollections.DataAccess.Data.Repository.IRepository;
 using RecipeCollections.Utility;
@@ -9,11 +9,13 @@ namespace RecipeCollections.Pages {
     public class DetailsModel : PageModel
     {
         private readonly IUnitOfWork _unitOfWork;
-        public DetailsModel(IUnitOfWork unitOfWork) {
+        private readonly ApplicationDbContext _context;
+        public DetailsModel(ApplicationDbContext context, IUnitOfWork unitOfWork) {
+            _context = context;
             _unitOfWork = unitOfWork;
         }
         public Models.Recipe Recipe { get; set; }
-        public void OnGet(int id)
+        public async System.Threading.Tasks.Task OnGetAsync(int id)
         {
             List<int> recipeid_list = null;
             int recent_count = 0;
@@ -33,7 +35,10 @@ namespace RecipeCollections.Pages {
 
             HttpContext.Session.Set(StaticDetails.RecentlyViewed, recipeid_list);
             HttpContext.Session.Set(StaticDetails.RecentlyViewedCount, recent_count);
-            Recipe = _unitOfWork.Recipe.GetFirstorDefault(r => r.Id == id,  "Category");
+            Recipe = await _context.Recipes
+                .Include(r => r.RecipeCategories)
+                .ThenInclude(r => r.Category)
+                .SingleAsync(r => r.Id == id);
         }
     }
 }

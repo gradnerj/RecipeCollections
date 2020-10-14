@@ -71,7 +71,7 @@
                         parsedInstructions = parsedInstructions.Replace("<li>", "");
                         parsedInstructions = parsedInstructions.Replace("</li>", ".");
                         var listItems = parsedInstructions.Split('.');
-                        <ul>
+                        <ul >
                             @foreach (var l in listItems) {
                                 <li>
                                     @l

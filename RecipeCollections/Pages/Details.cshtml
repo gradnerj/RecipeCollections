@@ -42,9 +42,17 @@
                         </thead>
                         <tr>
                             <th scope="row">
-                                Category
+                                Categories
                             </th>
                             @*<td class="card-text">@Html.DisplayFor(modelItem => Model.Recipe.Category.Name)</td>*@
+                            <td class="card-text">
+                            @{
+                                foreach (var category in Model.Recipe.RecipeCategories) {
+                                    @category.Category.Name
+                                    <br />
+                                }
+                            }
+                            </td>
                         </tr>
                         <tr>
                             <th scope="row">
@@ -77,7 +85,7 @@
                                     parsedInstructions = parsedInstructions.Replace("<li>", "");
                                     parsedInstructions = parsedInstructions.Replace("</li>", ".");
                                     var listItems = parsedInstructions.Split('.');
-                                    <ul class="overflow-auto" style="max-height:400px">
+                                    <ul class="overflow-auto" style="max-height:350px">
                                         @foreach (var l in listItems) {
                                             <li>
                                                 @l
@@ -92,7 +100,7 @@
                                     parsedInstructions = parsedInstructions.Replace("<li>", "");
                                     parsedInstructions = parsedInstructions.Replace("</li>", ".");
                                     var listItems = parsedInstructions.Split('.');
-                                    <ol class="overflow-auto" style="max-height:400px">
+                                    <ol class="overflow-auto" style="max-height:350px">
                                         @foreach (var l in listItems) {
                                             <li>
                                                 @l

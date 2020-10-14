@@ -27,7 +27,9 @@ namespace RecipeCollections.Pages.Admin.Recipe {
                 return NotFound();
             }
 
-            Recipe = await _context.Recipes.FirstOrDefaultAsync(m => m.Id == id);
+            Recipe = await _context.Recipes.Include(r => r.RecipeCategories)
+                .ThenInclude(r => r.Category)
+                .FirstOrDefaultAsync(m => m.Id == id);
 
             if (Recipe == null) {
                 return NotFound();

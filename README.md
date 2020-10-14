@@ -62,4 +62,4 @@
 	- [ ] Allow signed in Creators to Post reviews, add average rating and stars for new rating
 	- [x] Add default image for Recipes if none is uploaded
 	- [ ] Media query for different screen sizes
-	- [ ] Carousel size
+	- [x] Carousel size
