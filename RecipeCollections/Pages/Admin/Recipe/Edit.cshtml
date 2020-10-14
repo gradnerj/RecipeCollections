@@ -15,11 +15,8 @@
             <form method="post" enctype="multipart/form-data">
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <input type="hidden" asp-for="Recipe.Id" />
-                <div class="form-group">
-                    <label asp-for="Recipe.CreatorId" class="control-label"></label>
-                    <input asp-for="Recipe.CreatorId" class="form-control" />
-                    <span asp-validation-for="Recipe.CreatorId" class="text-danger"></span>
-                </div>
+                <input type="hidden" asp-for="Recipe.CreatorId" />
+                  
                 <div class="form-group">
                     <label asp-for="Recipe.Title" class="control-label"></label>
                     <input asp-for="Recipe.Title" class="form-control" />
@@ -32,6 +29,39 @@
                                                        " - Please select a category - ",
                                                        new { @class = "form-control" })
                     <span asp-validation-for="Recipe.Category" class="text-danger"></span>*@
+                    <div class="table">
+                        <table>
+                            <tr>
+                                @{
+                                    int cnt = 0;
+
+                                    foreach (var category in Model.RecipeCategoryDataList) {
+                                        if (cnt++ % 3 == 0) {
+                                        @:</tr><tr>
+                                        }
+                                        @:<td>
+
+
+
+
+                                            @if (Model.Recipe.RecipeCategories.Any(r => r.CategoryId == category.CategoryId)) {
+                                                <input type="checkbox"
+                                                       name="selectedCategories"
+                                                       checked
+                                                       value="@category.CategoryId" />
+                                                @category.Name
+                                            }else { 
+                                            <input type="checkbox"
+                                                   name="selectedCategories"
+                                                   value="@category.CategoryId" />@category.Name
+                                            }
+
+                                            @:</td>
+                                        }
+                                    @:</tr>
+                                }
+                            </table>
+                        </div>
                 </div>
                 <div class="form-group">
                     <label asp-for="Recipe.PrepTime" class="control-label"></label>

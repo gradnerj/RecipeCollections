@@ -70,7 +70,7 @@ namespace RecipeCollections.Pages.Admin.Recipe {
             //IQueryable<Models.Recipe> recipesIQ = _unitOfWork.Recipe.GetAll(null, null,"Category");
             //IQueryable<Models.Recipe> recipesIQ = RecipeData.Recipes.AsQueryable();
             if (!String.IsNullOrEmpty(filterBy)) {
-                recipesIQ = recipesIQ.Where(r => r.Title.Contains(filterBy));// || r.Category.Name.Contains(filterBy));
+                recipesIQ = recipesIQ.Where(r => r.Title.ToLower().Contains(filterBy.ToLower()) || r.RecipeCategories.Any(c => c.Category.Name.ToLower().Contains(filterBy.ToLower())));
             }
             switch (sortType) {
                 case "title_desc":

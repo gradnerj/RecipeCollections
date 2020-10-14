@@ -41,8 +41,8 @@
                                             <input type="checkbox"
                                                    name="selectedCategories"
                                                    value="@category.CategoryId"
-                                                   @*@(Html.Raw(course.Assigned ? "checked=\"checked\"" : ""))*@ />
-                                            @category.CategoryId @:  @category.Name
+                                                   @(Html.Raw(category.Assigned ? "checked=\"checked\"" : "")) />
+                                            @category.CategoryId @: @category.Name
                                         @:</td>
                                     }
                                 @:</tr>
