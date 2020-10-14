@@ -22,12 +22,12 @@ namespace RecipeCollections.Pages.Admin.Recipe {
         [BindProperty]
         public Models.Recipe Recipe { get; set; }
 
-        public IActionResult OnGet(int? id) {
+        public async Task<IActionResult> OnGetAsync(int? id) {
             if (id == null) {
                 return NotFound();
             }
 
-            Recipe = _unitOfWork.Recipe.GetFirstorDefault(m => m.Id == id, "Category");
+            Recipe = await _context.Recipes.FirstOrDefaultAsync(m => m.Id == id);
 
             if (Recipe == null) {
                 return NotFound();
@@ -41,16 +41,19 @@ namespace RecipeCollections.Pages.Admin.Recipe {
             {
                 return NotFound();
             }
-            Recipe = await _context.Recipes.FindAsync(id);
-            if (Recipe.PhotoPath != null) {
-                var imgPath = Path.Combine(_hostEnvironment.WebRootPath, Recipe.PhotoPath.TrimStart('\\'));
+            Models.Recipe recipeToDelete = await _context.Recipes
+                .Include(r => r.RecipeCategories)
+                .SingleAsync(r => r.Id == id);
+
+            if (recipeToDelete.PhotoPath != null) {
+                var imgPath = Path.Combine(_hostEnvironment.WebRootPath, recipeToDelete.PhotoPath.TrimStart('\\'));
                 if (System.IO.File.Exists(imgPath)) {
                     System.IO.File.Delete(imgPath);
                 }
             }
-            if (Recipe != null)
+            if (recipeToDelete != null)
             {
-                _context.Recipes.Remove(Recipe);
+                _context.Recipes.Remove(recipeToDelete);
                 await _context.SaveChangesAsync();
             }
 
