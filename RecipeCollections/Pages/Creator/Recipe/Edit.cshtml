@@ -1,0 +1,114 @@
+﻿@page
+@model RecipeCollections.Pages.Creator.EditModel
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+<div class="container">
+    <h1>Edit</h1>
+
+    <h4>Recipe</h4>
+    <hr />
+    <div class="row">
+        <div class="col-md-4">
+            <form method="post" enctype="multipart/form-data">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input type="hidden" asp-for="Recipe.Id" />
+                <input type="hidden" asp-for="Recipe.CreatorId" value="@Model.Recipe.CreatorId" class="form-control" />
+                <div class="form-group">
+                    <label asp-for="Recipe.Title" class="control-label"></label>
+                    <input asp-for="Recipe.Title" class="form-control" />
+                    <span asp-validation-for="Recipe.Title" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    @*<label asp-for="Recipe.Category" class="control-label"></label>
+        @Html.DropDownListFor(m => m.Recipe.CategoryId,
+                                            Model.CategoryList,
+                                            " - Please select a category - ",
+                                            new { @class = "form-control" })
+        <span asp-validation-for="Recipe.Category" class="text-danger"></span>*@
+                    Categories
+                    <div class="table">
+                        <table>
+                            <tr>
+                                @{
+                                    int cnt = 0;
+
+                                    foreach (var category in Model.RecipeCategoryDataList) {
+                                        if (cnt++ % 3 == 0) {
+                                        @:</tr><tr>
+                                        }
+                                        @:<td>
+
+                                            @if (Model.Recipe.RecipeCategories.Any(r => r.CategoryId == category.CategoryId)) {
+                                                <input type="checkbox"
+                                                       name="selectedCategories"
+                                                       checked
+                                                       value="@category.CategoryId" />
+                                                @category.Name
+                                            } else {
+                                                <input type="checkbox"
+                                                       name="selectedCategories"
+                                                       value="@category.CategoryId" />@category.Name
+                                                }
+
+                                        @:</td>
+                                    }
+                                @:</tr>
+                                }
+                            </table>
+                        </div>
+                    </div>
+                <div class="form-group">
+                    <label asp-for="Recipe.PrepTime" class="control-label"></label>
+                    <input asp-for="Recipe.PrepTime" class="form-control" />
+                    <span asp-validation-for="Recipe.PrepTime" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Recipe.CookTime" class="control-label"></label>
+                    <input asp-for="Recipe.CookTime" class="form-control" />
+                    <span asp-validation-for="Recipe.CookTime" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Recipe.FeedsQty" class="control-label"></label>
+                    <input asp-for="Recipe.FeedsQty" class="form-control" />
+                    <span asp-validation-for="Recipe.FeedsQty" class="text-danger"></span>
+                </div>
+                <div class="form-group row image-row">
+                    <div class="col">
+                        <label asp-for="Recipe.PhotoPath" class="control-label"></label>
+                        <input style="height:initial" type="file" asp-for="Recipe.PhotoPath" class="form-control" />
+                        <span asp-validation-for="Recipe.PhotoPath" class="text-danger"></span>
+                    </div>
+                    <div class="col">
+                        <img src="@Model.Recipe.PhotoPath" class="img-thumbnail customImageSize" />
+                        <input type="hidden" asp-for="OldPhotoPath" value="@Model.Recipe.PhotoPath" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Recipe.Instructions" class="control-label"></label>
+                    <textarea asp-for="Recipe.Instructions" class="form-control"></textarea>
+                    <span asp-validation-for="Recipe.Instructions" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Save" class="btn btn-success" />
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div>
+        <a class="btn btn-outline-success" asp-page="./Index">Back to List</a>
+    </div>
+</div>
+@section Scripts {
+    <script>
+        tinymce.init({
+            selector: 'textarea',
+            plugins: "lists",
+            menubar: 'file edit format',
+        });
+    </script>
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

@@ -221,7 +221,7 @@ namespace RecipeCollections.DataAccess.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("RecipeCollections.Models.Ingredient", b =>
+            modelBuilder.Entity("RecipeCollections.Models.Category", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -231,15 +231,9 @@ namespace RecipeCollections.DataAccess.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Qty")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("RecipeId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
-                    b.ToTable("Ingredients");
+                    b.ToTable("Categories");
                 });
 
             modelBuilder.Entity("RecipeCollections.Models.Recipe", b =>
@@ -248,9 +242,6 @@ namespace RecipeCollections.DataAccess.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Category")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("CookTime")
                         .HasColumnType("int");
@@ -276,6 +267,21 @@ namespace RecipeCollections.DataAccess.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Recipes");
+                });
+
+            modelBuilder.Entity("RecipeCollections.Models.RecipeCategory", b =>
+                {
+                    b.Property<int>("RecipeId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("CategoryId")
+                        .HasColumnType("int");
+
+                    b.HasKey("RecipeId", "CategoryId");
+
+                    b.HasIndex("CategoryId");
+
+                    b.ToTable("RecipeCategories");
                 });
 
             modelBuilder.Entity("RecipeCollections.Models.Review", b =>
@@ -359,6 +365,21 @@ namespace RecipeCollections.DataAccess.Migrations
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("RecipeCollections.Models.RecipeCategory", b =>
+                {
+                    b.HasOne("RecipeCollections.Models.Category", "Category")
+                        .WithMany("RecipeCategories")
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("RecipeCollections.Models.Recipe", "Recipe")
+                        .WithMany("RecipeCategories")
+                        .HasForeignKey("RecipeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

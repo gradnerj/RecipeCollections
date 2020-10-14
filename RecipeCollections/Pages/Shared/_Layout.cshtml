@@ -1,5 +1,8 @@
-﻿<!DOCTYPE html>
-@using RecipeCollections.Utility
+﻿@using RecipeCollections.Utility
+@using Microsoft.AspNetCore.Http
+@inject UserManager<IdentityUser> UserManager
+<!DOCTYPE html>
+
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -15,7 +18,7 @@
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light border-bottom box-shadow mb-3 " style="background-color:firebrick">
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light box-shadow " style="background-color:firebrick">
             <div class="container-fluid">
                 <a class="navbar-brand" asp-area="" asp-page="/Index" style="color:white">Recipe Collections</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
@@ -34,18 +37,82 @@
                                     <a class="dropdown-item text-white" asp-page="/Admin/User/Index">Users</a>
                                     <a class="dropdown-item text-white" asp-page="/Admin/Recipe/Index">Recipes</a>
                                     <a class="dropdown-item text-white" asp-page="/Admin/Review/Index">Reviews</a>
+                                    <a class="dropdown-item text-white" asp-page="/Admin/Category/Index">Categories</a>
                                 </div>
+                            </li>
+                        }
+                        @if (User.IsInRole(StaticDetails.CreatorRole)) {
+                            <li class="nav-item">
+                                <a class="nav-link text-white" method="post" asp-page="/Creator/Recipe/Index">My Recipes</a>
                             </li>
                         }
                         <li class="nav-item">
                             <a class="nav-link text-white" asp-area="" asp-page="/Index">Home</a>
                         </li>
+                            @if (Context.Session.Get<int>(StaticDetails.RecentlyViewedCount) != 0) {
+                                var count = Context.Session.Get<int>(StaticDetails.RecentlyViewedCount);
+                                <li>
+                                    @if (!User.Identity.IsAuthenticated) {
+                                    <a href="#SignInToUseModal" class="nav-link text-white" data-toggle="modal">
+                                        <i class="fas fa-eye"></i>&nbsp; (@count)
+                                    </a>
+                                    } else {
+                                    <a class="nav-link text-white" data-toggle="tooltip" data-placement="bottom" title="Recently Viewed" asp-page="/RecentlyViewed">
+                                        <i class="fas fa-eye"></i>&nbsp; (@count)
+                                    </a>
+                                    }
+                                </li>
+                            } else {
+                                <li>
+                                    <a href="#recentlyViewedModal" class="nav-link text-white" data-toggle="modal">
+                                        <i class="fas fa-eye"></i>&nbsp; (0)
+                                    </a>
+                                </li>
+
+                            }
                     </ul>
+                    <div class="modal fade" id="recentlyViewedModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="recentlyViewedModal">Oops! No Recently Viewed Recipes</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    You haven't viewed any recipes recently! When you select a recipes image or title it will be added to your Recently Viewed.
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal fade" id="SignInToUseModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="SignInToUseModal">Oops! You're Not Logged In</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    Please login to see your recently viewed recipes.
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                    <a asp-area="Identity" asp-page="/Account/Login" asp-route-returnUrl="/RecentlyViewed" class="btn btn-success" >Login</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </nav>
     </header>
-    <div class="container">
+    <div class="container-fluid pr-0">
         <main role="main" class="pb-3">
             @RenderBody()
         </main>

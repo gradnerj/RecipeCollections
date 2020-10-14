@@ -4,63 +4,64 @@
 @{
     ViewData["Title"] = "Register";
 }
-<div class="row">
-    <div class="col-md-4">
-        <section>
-            <form method="post" autocomplete="off" asp-route-returnUrl="@Model.ReturnUrl">
-                <h3 class="col-12 text-dark text-center py-4">
-                    @if (User.IsInRole(StaticDetails.AdminRole)) {
-                        <strong>Register a User</strong>
-                    } else {
-                        <strong>Sign Up</strong>
-                    }
-                </h3>
-                <hr />
-                <div class="row form-group">
-                    <div class="col">
-                        <input type="text" asp-for="Input.FirstName" autocomplete="off" placeholder="First Name" class="form-control" />
-                        <span asp-validation-for="Input.FirstName" class="text-danger"></span>
+<div class="container">
+    <div class="row">
+        <div class="col-md-4">
+            <section>
+                <form method="post" autocomplete="off" asp-route-returnUrl="@Model.ReturnUrl">
+                    <h3 class="col-12 text-dark text-center py-4">
+                        @if (User.IsInRole(StaticDetails.AdminRole)) {
+                            <strong>Register a User</strong>
+                        } else {
+                            <strong>Sign Up</strong>
+                        }
+                    </h3>
+                    <hr />
+                    <div class="row form-group">
+                        <div class="col">
+                            <input type="text" asp-for="Input.FirstName" autocomplete="off" placeholder="First Name" class="form-control" />
+                            <span asp-validation-for="Input.FirstName" class="text-danger"></span>
+                        </div>
+                        <div class="col pl-0">
+                            <input type="text" asp-for="Input.LastName" autocomplete="off" placeholder="Last Name" class="form-control" />
+                            <span asp-validation-for="Input.LastName" class="text-danger"></span>
+                        </div>
                     </div>
-                    <div class="col pl-0">
-                        <input type="text" asp-for="Input.LastName" autocomplete="off" placeholder="Last Name" class="form-control" />
-                        <span asp-validation-for="Input.LastName" class="text-danger"></span>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <input type="email" asp-for="Input.Email" autocomplete="off" placeholder="Email" class="form-control" />
-                    <span asp-validation-for="Input.Email" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <input type="text" asp-for="Input.PhoneNumber" autocomplete="off" placeholder="Phone Number" class="form-control" />
-                    <span asp-validation-for="Input.PhoneNumber" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <input type="password" asp-for="Input.Password" autocomplete="off" placeholder="Password" class="form-control" />
-                    <span asp-validation-for="Input.Password" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <input type="password" asp-for="Input.ConfirmPassword" autocomplete="off" placeholder="Confirm Password" class="form-control" />
-                    <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
-                </div>
-                @if (User.IsInRole(StaticDetails.AdminRole)) {
                     <div class="form-group">
-                        <input type="radio" name="rdUserRole" value="@StaticDetails.CreatorRole" /> @StaticDetails.CreatorRole
-                        <input type="radio" name="rdUserRole" value="@StaticDetails.AdminRole" /> @StaticDetails.AdminRole
+                        <input type="email" asp-for="Input.Email" autocomplete="off" placeholder="Email" class="form-control" />
+                        <span asp-validation-for="Input.Email" class="text-danger"></span>
                     </div>
-                } else {
-                    <input type="hidden" name="rdUserRole" value="@StaticDetails.CreatorRole" />
-                }
-                <div class="form-group">
-                    <button type="submit" class="btn btn-success form-control">Register</button>
-                </div>
-            </form>
-        </section>
-    </div>
-    <div class="col-md-6 col-md-offset-2">
-        <img src="~/images/site_photos/RegisterPagePhoto.jpg" />
+                    <div class="form-group">
+                        <input type="text" asp-for="Input.PhoneNumber" autocomplete="off" placeholder="Phone Number" class="form-control" />
+                        <span asp-validation-for="Input.PhoneNumber" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <input type="password" asp-for="Input.Password" autocomplete="off" placeholder="Password" class="form-control" />
+                        <span asp-validation-for="Input.Password" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <input type="password" asp-for="Input.ConfirmPassword" autocomplete="off" placeholder="Confirm Password" class="form-control" />
+                        <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
+                    </div>
+                    @if (User.IsInRole(StaticDetails.AdminRole)) {
+                        <div class="form-group">
+                            <input type="radio" name="rdUserRole" value="@StaticDetails.CreatorRole" /> @StaticDetails.CreatorRole
+                            <input type="radio" name="rdUserRole" value="@StaticDetails.AdminRole" /> @StaticDetails.AdminRole
+                        </div>
+                    } else {
+                        <input type="hidden" name="rdUserRole" value="@StaticDetails.CreatorRole" />
+                    }
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-success form-control">Register</button>
+                    </div>
+                </form>
+            </section>
+        </div>
+        <div class="col-md-6 col-md-offset-2 pt-5">
+            <img src="~/images/site_photos/RegisterPagePhoto.jpg" />
+        </div>
     </div>
 </div>
-
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
 }

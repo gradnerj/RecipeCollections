@@ -4,32 +4,34 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
+using RecipeCollections.DataAccess.Data.Repository.IRepository;
 
 namespace RecipeCollections.Pages.Admin.Recipe {
     public class DeleteModel : PageModel
     {
         private readonly Data.ApplicationDbContext _context;
         private readonly IWebHostEnvironment _hostEnvironment;
-        public DeleteModel(Data.ApplicationDbContext context, IWebHostEnvironment hostEnvironment)
+        private readonly IUnitOfWork _unitOfWork;
+        public DeleteModel(Data.ApplicationDbContext context, IWebHostEnvironment hostEnvironment, IUnitOfWork unitOfWork)
         {
             _context = context;
             _hostEnvironment = hostEnvironment;
+            _unitOfWork = unitOfWork;
         }
 
         [BindProperty]
         public Models.Recipe Recipe { get; set; }
-
-        public async Task<IActionResult> OnGetAsync(int? id)
-        {
-            if (id == null)
-            {
+       
+        public async Task<IActionResult> OnGetAsync(int? id) {
+            if (id == null) {
                 return NotFound();
             }
 
-            Recipe = await _context.Recipes.FirstOrDefaultAsync(m => m.Id == id);
+            Recipe = await _context.Recipes.Include(r => r.RecipeCategories)
+                .ThenInclude(r => r.Category)
+                .FirstOrDefaultAsync(m => m.Id == id);
 
-            if (Recipe == null)
-            {
+            if (Recipe == null) {
                 return NotFound();
             }
             return Page();
@@ -41,16 +43,19 @@ namespace RecipeCollections.Pages.Admin.Recipe {
             {
                 return NotFound();
             }
-            Recipe = await _context.Recipes.FindAsync(id);
-            if (Recipe.PhotoPath != null) {
-                var imgPath = Path.Combine(_hostEnvironment.WebRootPath, Recipe.PhotoPath.TrimStart('\\'));
+            Models.Recipe recipeToDelete = await _context.Recipes
+                .Include(r => r.RecipeCategories)
+                .SingleAsync(r => r.Id == id);
+
+            if (recipeToDelete.PhotoPath != null) {
+                var imgPath = Path.Combine(_hostEnvironment.WebRootPath, recipeToDelete.PhotoPath.TrimStart('\\'));
                 if (System.IO.File.Exists(imgPath)) {
                     System.IO.File.Delete(imgPath);
                 }
             }
-            if (Recipe != null)
+            if (recipeToDelete != null)
             {
-                _context.Recipes.Remove(Recipe);
+                _context.Recipes.Remove(recipeToDelete);
                 await _context.SaveChangesAsync();
             }
 

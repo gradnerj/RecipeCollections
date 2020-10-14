@@ -6,164 +6,171 @@
     ViewData["Title"] = "Index";
     Layout = "~/Pages/Shared/_Layout.cshtml";
 }
+<div class="container">
+    <h1>Index</h1>
 
-<h1>Index</h1>
-
-<p>
-    <a style="color:firebrick" asp-page="Create">Create New</a>
-</p>
-<form style="text-align:end" asp-page="./Index" method="get">
-    <div class="form-actions">
-        <input type="text" placeholder="Find by Title or Category" name="SearchString" value="@Model.CurrentFilter" />
-        <input type="submit" value="Search" class="btn btn-success" />
-    </div>
-    <div class="h6 sidebar-items"><a class="sidebar-links" asp-page="./Index">Back to full List</a></div>
-</form>
-<table class="table table-striped">
-    <thead>
-        <tr>
-            <th>
-                <a class="sidebar-links" asp-page="./Index" asp-route-sortType="@Model.CreatorIdSort" asp-route-currentFilter="@Model.CurrentFilter">
-                    @Html.DisplayNameFor(model => model.Recipes[0].CreatorId)
-                </a>
-            </th>
-            <th style="color:firebrick">
-                Username
-            </th>
-            <th>
-                <a class="sidebar-links" asp-page="./Index" asp-route-sortType="@Model.TitleSort" asp-route-currentFilter="@Model.CurrentFilter">
-                    @Html.DisplayNameFor(model => model.Recipes[0].Title)
-                </a>
-            </th>
-            <th>
-                <a class="sidebar-links" asp-page="./Index" asp-route-sortType="@Model.CategorySort" asp-route-currentFilter="@Model.CurrentFilter">
-                    @Html.DisplayNameFor(model => model.Recipes[0].Category)
-                </a>
-            </th>
-            <th>
-                <a class="sidebar-links" asp-page="./Index" asp-route-sortType="@Model.PrepTimeSort" asp-route-currentFilter="@Model.CurrentFilter">
-                    @Html.DisplayNameFor(model => model.Recipes[0].PrepTime)
-                </a>
-            </th>
-            <th>
-                <a class="sidebar-links" asp-page="./Index" asp-route-sortType="@Model.CookTimeSort" asp-route-currentFilter="@Model.CurrentFilter">
-                    @Html.DisplayNameFor(model => model.Recipes[0].CookTime)
-                </a>
-            </th>
-            <th>
-                <a class="sidebar-links" asp-page="./Index" asp-route-sortType="@Model.FeedsQtySort" asp-route-currentFilter="@Model.CurrentFilter">
-                    @Html.DisplayNameFor(model => model.Recipes[0].FeedsQty)
-                </a>
-            </th>
-            <th style="color:firebrick">
-                @Html.DisplayNameFor(model => model.Recipes[0].PhotoPath)
-            </th>
-            <th style="color:firebrick">
-                @Html.DisplayNameFor(model => model.Recipes[0].Instructions)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model.Recipes) {
+    <p>
+        <a style="color:firebrick" asp-page="Create">Create New</a>
+    </p>
+    <form style="text-align:end" asp-page="./Index" method="get">
+        <div class="form-actions">
+            <input type="text" placeholder="Find by Title or Category" name="SearchString" value="@Model.CurrentFilter" />
+            <input type="submit" value="Search" class="btn btn-success" />
+        </div>
+        <div class="h6 sidebar-items"><a class="sidebar-links" asp-page="./Index">Back to full List</a></div>
+    </form>
+    <table class="table table-striped">
+        <thead>
             <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.CreatorId)
-                </td>
-                <td>
-                    @{
-                        var creator = await UserManager.FindByIdAsync(item.CreatorId);
-                    }
-                    @if (creator != null) {
-                        @creator.UserName
-                    }
-
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Title)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Category)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.PrepTime)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.CookTime)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.FeedsQty)
-                </td>
-                <td>
-                    <img src="@item.PhotoPath" class="img-thumbnail customImageSize" />
-                </td>
-                <td>
-                    @{
-                        if (item.Instructions.Contains("<ul>")) {
-                            var itemCount = Regex.Matches(item.Instructions, "<li>").Count;
-                            var parsedInstructions = item.Instructions.Replace("\n", "").Replace("\r", "");
-                            parsedInstructions = parsedInstructions.Replace("<ul>", "");
-                            parsedInstructions = parsedInstructions.Replace("</li></ul>", "");
-                            parsedInstructions = parsedInstructions.Replace("<li>", "");
-                            parsedInstructions = parsedInstructions.Replace("</li>", ".");
-                            var listItems = parsedInstructions.Split('.');
-                            <ul style="height:125px;" class="overflow-auto">
-                                @foreach (var l in listItems) {
-                                    <li>
-                                        @l
-                                    </li>
-                                }
-                            </ul>
-                        } else if (item.Instructions.Contains("<ol>")) {
-                            var itemCount = Regex.Matches(item.Instructions, "<li>").Count;
-                            var parsedInstructions = item.Instructions.Replace("\n", "").Replace("\r", "");
-                            parsedInstructions = parsedInstructions.Replace("<ol>", "");
-                            parsedInstructions = parsedInstructions.Replace("</li></ol>", "");
-                            parsedInstructions = parsedInstructions.Replace("<li>", "");
-                            parsedInstructions = parsedInstructions.Replace("</li>", ".");
-                            var listItems = parsedInstructions.Split('.');
-                            <ol style="height:125px;" class="overflow-auto">
-                                @foreach (var l in listItems) {
-                                    <li>
-                                        @l
-                                    </li>
-                                }
-                            </ol>
-                        } else {
-                            var parsedInstructions = item.Instructions.Replace("<p>", "").Replace("</p>", "");
-                            @parsedInstructions
-                        }
-                    }
-                </td>
-                <td>
-                    <a class="btn btn-outline-success" asp-page="./Edit" asp-route-id="@item.Id">Edit</a>
-                    <a class="btn btn-outline-success mt-1" asp-page="./Details" asp-route-id="@item.Id">Details</a>
-                    <a class="btn btn-outline-danger mt-1" asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
-                </td>
+                <th>
+                    <a class="sidebar-links" asp-page="./Index" asp-route-sortType="@Model.CreatorIdSort" asp-route-currentFilter="@Model.CurrentFilter">
+                        @Html.DisplayNameFor(model => model.Recipes[0].CreatorId)
+                    </a>
+                </th>
+                <th style="color:firebrick">
+                    Username
+                </th>
+                <th>
+                    <a class="sidebar-links" asp-page="./Index" asp-route-sortType="@Model.TitleSort" asp-route-currentFilter="@Model.CurrentFilter">
+                        @Html.DisplayNameFor(model => model.Recipes[0].Title)
+                    </a>
+                </th>
+                <th style="color:firebrick">
+                    @*<a class="sidebar-links" asp-page="./Index" asp-route-sortType="@Model.CategorySort" asp-route-currentFilter="@Model.CurrentFilter">
+                        @Html.DisplayNameFor(model => model.Recipes[0].Category)
+                    </a>*@
+                    Categories
+                </th>
+                <th>
+                    <a class="sidebar-links" asp-page="./Index" asp-route-sortType="@Model.PrepTimeSort" asp-route-currentFilter="@Model.CurrentFilter">
+                        @Html.DisplayNameFor(model => model.Recipes[0].PrepTime)
+                    </a>
+                </th>
+                <th>
+                    <a class="sidebar-links" asp-page="./Index" asp-route-sortType="@Model.CookTimeSort" asp-route-currentFilter="@Model.CurrentFilter">
+                        @Html.DisplayNameFor(model => model.Recipes[0].CookTime)
+                    </a>
+                </th>
+                <th>
+                    <a class="sidebar-links" asp-page="./Index" asp-route-sortType="@Model.FeedsQtySort" asp-route-currentFilter="@Model.CurrentFilter">
+                        @Html.DisplayNameFor(model => model.Recipes[0].FeedsQty)
+                    </a>
+                </th>
+                <th style="color:firebrick">
+                    @Html.DisplayNameFor(model => model.Recipes[0].PhotoPath)
+                </th>
+                <th style="color:firebrick">
+                    @Html.DisplayNameFor(model => model.Recipes[0].Instructions)
+                </th>
+                <th></th>
             </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.RecipeData.Recipes) {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CreatorId)
+                    </td>
+                    <td>
+                        @{
+                            var creator = await UserManager.FindByIdAsync(item.CreatorId);
+                        }
+                        @if (creator != null) {
+                            @creator.UserName
+                        }
+
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Title)
+                    </td>
+                    <td>
+                        @* @Html.DisplayFor(modelItem => item.Category.Name)*@
+                        @{
+                            foreach (var category in item.RecipeCategories) {
+                                 @category.Category.Name <br />
+                            }
+                        }
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PrepTime)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CookTime)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FeedsQty)
+                    </td>
+                    <td>
+                        <img src="@item.PhotoPath" class="img-thumbnail customImageSize" />
+                    </td>
+                    <td>
+                        @{
+                            if (item.Instructions.Contains("<ul>")) {
+                                var itemCount = Regex.Matches(item.Instructions, "<li>").Count;
+                                var parsedInstructions = item.Instructions.Replace("\n", "").Replace("\r", "");
+                                parsedInstructions = parsedInstructions.Replace("<ul>", "");
+                                parsedInstructions = parsedInstructions.Replace("</li></ul>", "");
+                                parsedInstructions = parsedInstructions.Replace("<li>", "");
+                                parsedInstructions = parsedInstructions.Replace("</li>", ".");
+                                var listItems = parsedInstructions.Split('.');
+                                <ul style="height:125px;" class="overflow-auto">
+                                    @foreach (var l in listItems) {
+                                        <li>
+                                            @l
+                                        </li>
+                                    }
+                                </ul>
+                            } else if (item.Instructions.Contains("<ol>")) {
+                                var itemCount = Regex.Matches(item.Instructions, "<li>").Count;
+                                var parsedInstructions = item.Instructions.Replace("\n", "").Replace("\r", "");
+                                parsedInstructions = parsedInstructions.Replace("<ol>", "");
+                                parsedInstructions = parsedInstructions.Replace("</li></ol>", "");
+                                parsedInstructions = parsedInstructions.Replace("<li>", "");
+                                parsedInstructions = parsedInstructions.Replace("</li>", ".");
+                                var listItems = parsedInstructions.Split('.');
+                                <ol style="height:125px;" class="overflow-auto">
+                                    @foreach (var l in listItems) {
+                                        <li>
+                                            @l
+                                        </li>
+                                    }
+                                </ol>
+                            } else {
+                                var parsedInstructions = item.Instructions.Replace("<p>", "").Replace("</p>", "");
+                                @parsedInstructions
+                            }
+                        }
+                    </td>
+                    <td>
+                        <a class="btn btn-outline-success mt-1" asp-page="./Edit" asp-route-id="@item.Id">Edit</a>
+                        <a class="btn btn-outline-success mt-1" asp-page="./Details" asp-route-id="@item.Id">Details</a>
+                        <a class="btn btn-outline-danger mt-1" asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <div class="row-12 offset-5" style="justify-content:space-evenly; margin-top: 20px;">
+        @{
+            var prevDisabled = !Model.Recipes.HasPreviousPage ? "disabled" : "";
+            var nextDisabled = !Model.Recipes.HasNextPage ? "disabled" : "";
         }
-    </tbody>
-</table>
-<div class="row-12 offset-5" style="justify-content:space-evenly; margin-top: 20px;">
-    @{
-        var prevDisabled = !Model.Recipes.HasPreviousPage ? "disabled" : "";
-        var nextDisabled = !Model.Recipes.HasNextPage ? "disabled" : "";
-    }
 
-    <a asp-page="./Index"
-       asp-route-sortOrder="@Model.CurrentSort"
-       asp-route-pageIndex="@(Model.Recipes.PageIndex - 1)"
-       asp-route-currentFilter="@Model.CurrentFilter"
-       class="btn btn-success @prevDisabled">
-        Previous
-    </a>
+        <a asp-page="./Index"
+           asp-route-sortOrder="@Model.CurrentSort"
+           asp-route-pageIndex="@(Model.Recipes.PageIndex - 1)"
+           asp-route-currentFilter="@Model.CurrentFilter"
+           class="btn btn-success @prevDisabled">
+            Previous
+        </a>
 
 
-    <a asp-page="./Index"
-       asp-route-sortOrder="@Model.CurrentSort"
-       asp-route-pageIndex="@(Model.Recipes.PageIndex + 1)"
-       asp-route-currentFilter="@Model.CurrentFilter"
-       class="btn btn-success @nextDisabled">
-        Next
-    </a>
+        <a asp-page="./Index"
+           asp-route-sortOrder="@Model.CurrentSort"
+           asp-route-pageIndex="@(Model.Recipes.PageIndex + 1)"
+           asp-route-currentFilter="@Model.CurrentFilter"
+           class="btn btn-success @nextDisabled">
+            Next
+        </a>
+    </div>
 </div>

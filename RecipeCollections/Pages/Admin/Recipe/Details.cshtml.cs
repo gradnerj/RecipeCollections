@@ -1,37 +1,35 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
-using RecipeCollections.Data;
-using RecipeCollections.Models;
+using RecipeCollections.DataAccess.Data.Repository.IRepository;
+using RecipeCollections.Models.Models.RecipeViewModels;
+using System.Linq;
+using System.Threading.Tasks;
 
-namespace RecipeCollections.Pages.Admin.Recipe
-{
+namespace RecipeCollections.Pages.Admin.Recipe {
     public class DetailsModel : PageModel
     {
-        private readonly RecipeCollections.Data.ApplicationDbContext _context;
+        private readonly Data.ApplicationDbContext _context;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public DetailsModel(RecipeCollections.Data.ApplicationDbContext context)
+        public DetailsModel(Data.ApplicationDbContext context, IUnitOfWork unitOfWork)
         {
             _context = context;
+            _unitOfWork = unitOfWork;
         }
 
+        [BindProperty]
         public Models.Recipe Recipe { get; set; }
-
-        public async Task<IActionResult> OnGetAsync(int? id)
-        {
-            if (id == null)
-            {
+        public async Task<IActionResult> OnGetAsync(int? id) {
+            if (id == null) {
                 return NotFound();
             }
+            Recipe = await _context.Recipes
+                .Include(r => r.RecipeCategories)
+                .ThenInclude(r=>r.Category)
+                .SingleAsync(r => r.Id == id);
 
-            Recipe = await _context.Recipes.FirstOrDefaultAsync(m => m.Id == id);
-
-            if (Recipe == null)
-            {
+            if (Recipe == null) {
                 return NotFound();
             }
             return Page();

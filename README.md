@@ -48,8 +48,18 @@
 - [x] Add Real Recipes for Demo
 
 ### TODO List - Deliverable 3
-- [ ] Media query for different screen sizes
-- [ ] Allow signed in Creators to Post reviews 
-- [ ] Use sessions
-- [ ] Allow creators to post recipes
-- [ ] Allow creators to view only their recipes
+- [x] Allow creators to post recipes
+- [x] Allow creators to view only their recipes
+- [x] Use sessions - I'll add a details page and keep track of recipes they've looked at then display them on another Recently Viewed Page
+	- [x] Added Details Page
+	- [x] Added RecentlyViewed Page
+	- [x] When a user clicks a recipe to view details Add to Session
+- [x] Add Category CRUD for Admins to work with categories
+- [x] Styling
+	- [x] Update images for Creator Recipe CRUD
+	- [x] Update instructions for Creator Recipe CRUD
+- [ ] Extra
+	- [ ] Allow signed in Creators to Post reviews, add average rating and stars for new rating
+	- [x] Add default image for Recipes if none is uploaded
+	- [ ] Media query for different screen sizes
+	- [x] Carousel size

@@ -4,10 +4,12 @@ namespace RecipeCollections.DataAccess.Data.Repository.IRepository {
     public interface IUnitOfWork : IDisposable {
 
         IRecipeRepository Recipe { get; }
-        IIngredientRepository Ingredient { get; }
+
         IReviewRepository Review { get; }
 
         IApplicationUserRepository ApplicationUser { get; }
+
+        ICategoryRepository Category { get; }
         void Save();
     }
 }

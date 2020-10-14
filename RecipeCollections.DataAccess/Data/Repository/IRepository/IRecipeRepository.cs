@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 
 namespace RecipeCollections.DataAccess.Data.Repository.IRepository {
-    public interface IRecipeRepository {
+    public interface IRecipeRepository : IRepository<Recipe>{
         IEnumerable<SelectListItem> GetRecipeList();
         void Update(Recipe recipe);
     }
