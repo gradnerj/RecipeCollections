@@ -46,9 +46,9 @@
                     </a>
                 </li>
                 <li class="sidebar-items">
-                    <a class="sidebar-links" asp-page="./Index" asp-route-sortType="@Model.CategorySort" asp-route-currentFilter="@Model.CurrentFilter">
+                    @*<a class="sidebar-links" asp-page="./Index" asp-route-sortType="@Model.CategorySort" asp-route-currentFilter="@Model.CurrentFilter">
                         @Html.DisplayNameFor(model => model.Recipes[0].Category)
-                    </a>
+                    </a>*@
                 </li>
                 <li class="sidebar-items">
                     <a class="sidebar-links" asp-page="./Index" asp-route-sortType="@Model.PrepTimeSort" asp-route-currentFilter="@Model.CurrentFilter">
@@ -103,7 +103,7 @@
                                     <th scope="row">
                                         Catgegory
                                     </th>
-                                    <td class="card-text">@Html.DisplayFor(modelItem => r.Category.Name)</td>
+                                    @*<td class="card-text">@Html.DisplayFor(modelItem => r.Category.Name)</td>*@
                                 </tr>
                                 <tr>
                                     <th scope="row">

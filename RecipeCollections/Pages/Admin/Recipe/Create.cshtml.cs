@@ -8,9 +8,10 @@ using System;
 using RecipeCollections.DataAccess.Data.Repository.IRepository;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using RecipeCollections.Models;
 
 namespace RecipeCollections.Pages.Admin.Recipe {
-    public class CreateModel : PageModel {
+    public class CreateModel : RecipeCategoriesPageModel {
         private readonly ApplicationDbContext _context;
         private readonly IWebHostEnvironment _hostEnvironment;
         private readonly IUnitOfWork _unitofWork;
@@ -24,8 +25,11 @@ namespace RecipeCollections.Pages.Admin.Recipe {
 
         public IActionResult OnGet()
         {
-            CategoryList = _unitofWork.Category.GetCategoryListForDropDown();
+            var recipe = new Models.Recipe();
+            recipe.RecipeCategories = new List<RecipeCategory>();
 
+            //CategoryList = _unitofWork.Category.GetCategoryListForDropDown();
+            PopulateRecipeCategories(_context, recipe);
             return Page();
         }
 
@@ -35,12 +39,24 @@ namespace RecipeCollections.Pages.Admin.Recipe {
        
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://aka.ms/RazorPagesCRUD.
-        public async Task<IActionResult> OnPostAsync()
+        public async Task<IActionResult> OnPostAsync(string[] selectedCategories)
         {
             if (!ModelState.IsValid)
             {
                 return Page();
             }
+
+            
+            if (selectedCategories != null) {
+                Recipe.RecipeCategories = new List<RecipeCategory>();
+                foreach (var cat in selectedCategories) {
+                    var catToAdd = new RecipeCategory {
+                        CategoryId = int.Parse(cat)
+                    };
+                    Recipe.RecipeCategories.Add(catToAdd);
+                }
+            }
+
             string webRootPath = _hostEnvironment.WebRootPath;
             var files = HttpContext.Request.Form.Files;
             if (files.Count > 0) {

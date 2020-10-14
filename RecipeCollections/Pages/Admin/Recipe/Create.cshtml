@@ -21,12 +21,34 @@
                     <span asp-validation-for="Recipe.Title" class="text-danger"></span>
                 </div>
                 <div class="form-group">
-                    <label asp-for="Recipe.Category" class="control-label"></label>
+                    @*<label asp-for="Recipe.Category" class="control-label"></label>
                     @Html.DropDownListFor(m => m.Recipe.CategoryId,
                                                        Model.CategoryList,
                                                        " - Please select a category - ",
                                                        new { @class = "form-control" })
-                    <span asp-validation-for="Recipe.Category" class="text-danger"></span>
+                    <span asp-validation-for="Recipe.Category" class="text-danger"></span>*@
+                    <div class="table">
+                        <table>
+                            <tr>
+                                @{
+                                    int cnt = 0;
+
+                                    foreach (var category in Model.RecipeCategoryDataList) {
+                                        if (cnt++ % 3 == 0) {
+                                        @:</tr><tr>
+                                        }
+                                        @:<td>
+                                            <input type="checkbox"
+                                                   name="selectedCategories"
+                                                   value="@category.CategoryId"
+                                                   @*@(Html.Raw(course.Assigned ? "checked=\"checked\"" : ""))*@ />
+                                            @category.CategoryId @:  @category.Name
+                                        @:</td>
+                                    }
+                                @:</tr>
+                                }
+                            </table>
+                        </div>
                 </div>
                 <div class="form-group">
                     <label asp-for="Recipe.PrepTime" class="control-label"></label>

@@ -13,6 +13,6 @@ namespace RecipeCollections.Models {
         [Display(Name="Category Name")]
         public string Name { get; set; }
 
-
+        public ICollection<RecipeCategory> RecipeCategories { get; set; }
     }
 }

@@ -35,10 +35,11 @@
                         @Html.DisplayNameFor(model => model.Recipes[0].Title)
                     </a>
                 </th>
-                <th>
-                    <a class="sidebar-links" asp-page="./Index" asp-route-sortType="@Model.CategorySort" asp-route-currentFilter="@Model.CurrentFilter">
+                <th style="color:firebrick">
+                    @*<a class="sidebar-links" asp-page="./Index" asp-route-sortType="@Model.CategorySort" asp-route-currentFilter="@Model.CurrentFilter">
                         @Html.DisplayNameFor(model => model.Recipes[0].Category)
-                    </a>
+                    </a>*@
+                    Categories
                 </th>
                 <th>
                     <a class="sidebar-links" asp-page="./Index" asp-route-sortType="@Model.PrepTimeSort" asp-route-currentFilter="@Model.CurrentFilter">
@@ -65,7 +66,7 @@
             </tr>
         </thead>
         <tbody>
-            @foreach (var item in Model.Recipes) {
+            @foreach (var item in Model.RecipeData.Recipes) {
                 <tr>
                     <td>
                         @Html.DisplayFor(modelItem => item.CreatorId)
@@ -83,7 +84,12 @@
                         @Html.DisplayFor(modelItem => item.Title)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.Category.Name)
+                        @* @Html.DisplayFor(modelItem => item.Category.Name)*@
+                        @{
+                            foreach (var category in item.RecipeCategories) {
+                                 @category.Category.Name <br />
+                            }
+                        }
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.PrepTime)

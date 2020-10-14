@@ -52,7 +52,7 @@ namespace RecipeCollections.Pages {
 
             var recipesIQ = getFilteredSorted(sortType, CurrentFilter);
             int pageSize = 3;
-            Recipes = await PaginatedList<Recipe>.CreateAsync(recipesIQ.AsNoTracking(), pageIndex ?? 1, pageSize);
+            Recipes = PaginatedList<Recipe>.Create(recipesIQ.AsNoTracking(), pageIndex ?? 1, pageSize);
             AvgReviews = new Dictionary<int, int>();
             foreach(var r in Recipes) {
                 var reviews = _context.Reviews.Where(rev => rev.RecipeId == r.Id);
@@ -75,24 +75,24 @@ namespace RecipeCollections.Pages {
 
         private IQueryable<Recipe> getFilteredSorted(string sortType, string filterBy) {
 
-            
+
 
             //IQueryable <Recipe> recipesIQ = from r in _context.Recipes
             //                               select r;
-            IQueryable<Recipe> recipesIQ = _unitOfWork.Recipe.GetAll(null, null, "Category");
-
+            //IQueryable<Recipe> recipesIQ = _unitOfWork.Recipe.GetAll(null, null, "Category");
+            IQueryable<Recipe> recipesIQ = _unitOfWork.Recipe.GetAll();
             if (!String.IsNullOrEmpty(filterBy)) {
-                recipesIQ = recipesIQ.Where(r => r.Title.Contains(filterBy) || r.Category.Name.Contains(filterBy));
+                recipesIQ = recipesIQ.Where(r => r.Title.Contains(filterBy));// || r.Category.Name.Contains(filterBy));
             }
             switch (sortType) {
                 case "title_desc":
                     recipesIQ = recipesIQ.OrderByDescending(r => r.Title);
                     return recipesIQ;
                 case "category_desc":
-                    recipesIQ = recipesIQ.OrderByDescending(r => r.Category.Name);
+                    //recipesIQ = recipesIQ.OrderByDescending(r => r.Category.Name);
                     return recipesIQ;
                 case "Category":
-                    recipesIQ = recipesIQ.OrderBy(r => r.Category.Name);
+                    //recipesIQ = recipesIQ.OrderBy(r => r.Category.Name);
                     return recipesIQ;
                 case "preptime_desc":
                     recipesIQ = recipesIQ.OrderByDescending(r => r.PrepTime);

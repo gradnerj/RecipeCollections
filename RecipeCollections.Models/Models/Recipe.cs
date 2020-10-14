@@ -6,8 +6,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace RecipeCollections.Models
 {
-    public class Recipe
-    {
+    public class Recipe {
 
         [Key]
         public int Id { get; set; }
@@ -16,14 +15,15 @@ namespace RecipeCollections.Models
         [Display(Name = "Creator Id")]
         public string CreatorId { get; set; }
 
-        [Display(Name="Recipe Title")]
+        [Display(Name = "Recipe Title")]
         public string Title { get; set; }
 
-        [Display(Name ="Category")]
-        public int CategoryId { get; set; }
+        public ICollection<RecipeCategory> RecipeCategories { get; set; }
+        //[Display(Name ="Category")]
+        //public int CategoryId { get; set; }
 
-        [ForeignKey("CategoryId")]
-        public virtual Category Category { get; set; }
+        //[ForeignKey("CategoryId")]
+        //public virtual Category Category { get; set; }
 
         [Display(Name = "Prep. Time")]
         [Range(1, int.MaxValue, ErrorMessage = "Must be a positive number")]
