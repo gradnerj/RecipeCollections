@@ -75,6 +75,7 @@
 * Creators cannot update or delete recipes that were added by other Creators
 
 ### TODO List - Deliverable 4
+- [ ] Change Feeds Qty. to Servings - everywhere
 - [ ] Allow signed in Creators to Post reviews, add average rating and stars for new rating
 - [x] Add default image for Recipes if none is uploaded
 - [ ] Media query for different screen sizes
