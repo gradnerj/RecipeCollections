@@ -3,6 +3,7 @@ using System.Linq;
 using System.Reflection;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using RecipeCollections.Data;
+using RecipeCollections.DataAccess.Data.Repository.IRepository;
 using RecipeCollections.Models;
 using RecipeCollections.Utility;
 
@@ -11,8 +12,10 @@ namespace RecipeCollections.Pages
     public class RecentlyViewedModel : PageModel
     {
         private readonly ApplicationDbContext _context;
-        public RecentlyViewedModel(ApplicationDbContext context) {
+        private readonly IUnitOfWork _unitOfWork;
+        public RecentlyViewedModel(ApplicationDbContext context, IUnitOfWork unitOfWork) {
             _context = context;
+            _unitOfWork = unitOfWork;
         }
 
         public List<int> RecipeIds { get; set; }
@@ -22,7 +25,7 @@ namespace RecipeCollections.Pages
             RecipeIds = HttpContext.Session.Get<List<int>>(StaticDetails.RecentlyViewed);
             RecipeList = new List<Recipe>();
             foreach(var id in RecipeIds) { 
-                RecipeList.Add(_context.Recipes.Where(r => r.Id == id).FirstOrDefault());
+                RecipeList.Add(_unitOfWork.Recipe.GetFirstorDefault(r => r.Id == id, "Category"));
             }
         }
     }

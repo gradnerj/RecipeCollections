@@ -54,15 +54,12 @@
 	- [x] Added Details Page
 	- [x] Added RecentlyViewed Page
 	- [x] When a user clicks a recipe to view details Add to Session
-- [ ] Add Category CRUD for Admins so Creators can add Recipes that belong to a M-M relationship
-- [ ] Styling
-	- [ ] Update images for Creator Recipe CRUD
-	- [ ] Update instructions for Creator Recipe CRUD
+- [x] Add Category CRUD for Admins to work with categories
+- [x] Styling
+	- [x] Update images for Creator Recipe CRUD
+	- [x] Update instructions for Creator Recipe CRUD
 - [ ] Extra
 	- [ ] Allow signed in Creators to Post reviews, add average rating and stars for new rating
 	- [x] Add default image for Recipes if none is uploaded
 	- [ ] Media query for different screen sizes
 	- [ ] Carousel size
-
-
-

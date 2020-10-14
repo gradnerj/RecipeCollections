@@ -18,7 +18,7 @@
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light border-bottom box-shadow mb-3 " style="background-color:firebrick">
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light box-shadow " style="background-color:firebrick">
             <div class="container-fluid">
                 <a class="navbar-brand" asp-area="" asp-page="/Index" style="color:white">Recipe Collections</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
@@ -112,7 +112,7 @@
             </div>
         </nav>
     </header>
-    <div class="container">
+    <div class="container-fluid pr-0">
         <main role="main" class="pb-3">
             @RenderBody()
         </main>

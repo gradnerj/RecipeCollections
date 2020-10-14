@@ -26,12 +26,15 @@ namespace RecipeCollections.Models
         public virtual Category Category { get; set; }
 
         [Display(Name = "Prep. Time")]
+        [Range(1, int.MaxValue, ErrorMessage = "Must be a positive number")]
         public int PrepTime { get; set; }
 
         [Display(Name = "Cook Time")]
+        [Range(1, int.MaxValue, ErrorMessage = "Must be a positive number")]
         public int CookTime { get; set; }
 
-        [Display(Name = "Feeds # People")]
+        [Display(Name = "Servings")]
+        [Range(1, int.MaxValue, ErrorMessage = "Must be a positive number")]
         public int FeedsQty { get; set; }
 
         [Display(Name = "Photo")]
