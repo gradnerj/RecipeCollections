@@ -58,8 +58,24 @@
 - [x] Styling
 	- [x] Update images for Creator Recipe CRUD
 	- [x] Update instructions for Creator Recipe CRUD
-- [ ] Extra
-	- [ ] Allow signed in Creators to Post reviews, add average rating and stars for new rating
-	- [x] Add default image for Recipes if none is uploaded
-	- [ ] Media query for different screen sizes
-	- [x] Carousel size
+### Key Notes about D3
+* Sessions are used to track the ID of recipes clicked on by a User.
+	- There are two cookies tracked within my sessions, a list of IDs and a count of how many are in the list for quick reference
+* The session cookie storing a complex type, list of integers, is serialized to ensure a distributed cache scenario
+	- The serialization occurs in a class I added to the Utility project name SessionExtension
+* No model or disk space is used for the sessions, the data stored there retrieves "Recently Viewed" recipes on the Recently Viewed Page. (The eye icon in the navbar)
+* Added clearing the sessions data in the Identity logout page. 
+* The recently view navbar link will pop-up a modal if the user hasn't viewed any recipes in that session.
+	- It will also pop up a modal if the user has viewed recipes but is not logged in.
+	- After logging in the user will be redirected to their Recently Viewed Page
+* True M:M relationship between Recipes and Collections using a pure join table
+	- A recipe can have many categories
+	- categories can be assigned to many recipies
+* When a Creator selects My Recipes in the navbar they will be directed to a page where they can CRUD recipes associated with their ID
+* Creators cannot update or delete recipes that were added by other Creators
+
+### TODO List - Deliverable 4
+- [ ] Allow signed in Creators to Post reviews, add average rating and stars for new rating
+- [x] Add default image for Recipes if none is uploaded
+- [ ] Media query for different screen sizes
+- [x] Carousel size
