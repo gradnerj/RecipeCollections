@@ -13,13 +13,13 @@
     </ol>
     <div class="carousel-inner">
         <div class="carousel-item active">
-            <img class="w-100"  style="height:180px" src="~/images/site_photos/banner3.jpg" alt="First slide">
+            <img class="w-100" style="height:180px" src="~/images/site_photos/banner3.jpg" alt="First slide">
         </div>
         <div class="carousel-item">
-            <img class="w-100"  style="height:180px" src="~/images/site_photos/banner2.jpg" alt="Second slide">
+            <img class="w-100" style="height:180px" src="~/images/site_photos/banner2.jpg" alt="Second slide">
         </div>
         <div class="carousel-item">
-            <img class="w-100"  style="height:180px" src="~/images/site_photos/banner3.jpg" alt="Third slide">
+            <img class="w-100" style="height:180px" src="~/images/site_photos/banner3.jpg" alt="Third slide">
         </div>
     </div>
 </div>
@@ -46,10 +46,10 @@
                     </a>
                 </li>
                 <!--<li class="sidebar-items">-->
-                    @*<a class="sidebar-links" asp-page="./Index" asp-route-sortType="@Model.CategorySort" asp-route-currentFilter="@Model.CurrentFilter">
+                @*<a class="sidebar-links" asp-page="./Index" asp-route-sortType="@Model.CategorySort" asp-route-currentFilter="@Model.CurrentFilter">
                         @Html.DisplayNameFor(model => model.Recipes[0].Category)
                     </a>*@
-                    <!--Categories
+                <!--Categories
                 </li>-->
                 <li class="sidebar-items">
                     <a class="sidebar-links" asp-page="./Index" asp-route-sortType="@Model.PrepTimeSort" asp-route-currentFilter="@Model.CurrentFilter">
@@ -73,44 +73,61 @@
 
 <div class="container">
     <div class="row pl-4">
+        @{
+            var reviewCounter = 0;
+        }
+
         @foreach (var r in Model.Recipes) {
             <div class="col">
                 <div class="card" style="width: 19rem;">
                     <a asp-page="/Details" asp-route-id="@r.Id"><img class="card-img-top uniform-img" src="@r.PhotoPath" alt="Card image cap"></a>
-                        <div class="card-body  px-0" style="padding-bottom:0px;">
-                            <table class="table">
-                                <thead>
-                                    <tr>
-                                        <th colspan="2" class="card-title"><a asp-page="/Details" asp-route-id="@r.Id" style="color:firebrick">@Html.DisplayFor(modelItem => r.Title)</a></th>
-                                    </tr>
-                                    <tr>
-                                        <td class="rating">
+                    <div class="card-body  px-0" style="padding-bottom:0px;">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th colspan="2" class="card-title"><a asp-page="/Details" asp-route-id="@r.Id" style="color:firebrick">@Html.DisplayFor(modelItem => r.Title)</a></th>
+                                </tr>
+                                <tr>
+                                    <td colspan="2">
+                                        <div>
+
+                                            <span>Avg. Rating</span>
                                             @{
                                                 var avg = Model.AvgReviews[r.Id];
                                                 var leftOver = 5 - avg;
-
-                                                for (var i = 0; i < leftOver; i++) {
-                                                    <span style="color:indianred;" class="review-star">&#9734;</span>
-                                                }
                                                 for (var i = 0; i < avg; i++) {
-                                                    <span style="color:indianred;" class="review-star">&#9733;</span>
+                                                    <span style="color:indianred;"><a><i class="fa fa-star"></i></a></span>
+                                                }
+                                                for (var i = 0; i < leftOver; i++) {
+                                                    <span style="color:indianred;"><a><i class="far fa-star"></i></a></span>
                                                 }
 
                                             }
-                                        </td>
-                                    </tr>
-                                </thead>
-                                <tr>
-                                    <th scope="row">
-                                        Categories
-                                    </th>
-                                    @*<td class="card-text">@Html.DisplayFor(modelItem => r.Category.Name)</td>*@
-                                    <td class="card-text" style="font-size:12px">
+                                        </div>
+                                        <div>
+                                            <form method="post">
+                                                <span>Rate It!</span>
+                                                <span><button style="color:indianred;" class="btn btn-link p-0" type="submit" asp-page-handler="review" asp-route-val="1" asp-route-recipeid="@r.Id"><i name="@reviewCounter" class="far fa-star rating1"></i></button></span>
+                                                <span><button style="color:indianred;" class="btn btn-link p-0" type="submit" asp-page-handler="review" asp-route-val="2" asp-route-recipeid="@r.Id"><i name="@reviewCounter" class="far fa-star rating2"></i></button></span>
+                                                <span><button style="color:indianred;" class="btn btn-link p-0" type="submit" asp-page-handler="review" asp-route-val="3" asp-route-recipeid="@r.Id"><i name="@reviewCounter" class="far fa-star rating3"></i></button></span>
+                                                <span><button style="color:indianred;" class="btn btn-link p-0" type="submit" asp-page-handler="review" asp-route-val="4" asp-route-recipeid="@r.Id"><i name="@reviewCounter" class="far fa-star rating4"></i></button></span>
+                                                <span><button style="color:indianred;" class="btn btn-link p-0" type="submit" asp-page-handler="review" asp-route-val="5" asp-route-recipeid="@r.Id"><i name="@reviewCounter" class="far fa-star rating5"></i></button></span>
+                                            </form>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </thead>
+                            <tr>
+                                <th scope="row">
+                                    Categories
+                                </th>
+                                @*<td class="card-text">@Html.DisplayFor(modelItem => r.Category.Name)</td>*@
+                                <td class="card-text" style="font-size:12px">
                                     @{
                                         int index = 0;
                                         int count = r.RecipeCategories.Count;
                                         foreach (var category in r.RecipeCategories) {
-                                            if (index < count-1) {
+                                            if (index < count - 1) {
                                                 @(category.Category.Name + ", ")
                                             } else {
                                                 @category.Category.Name
@@ -119,74 +136,76 @@
 
                                         }
                                     }
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">
-                                        Prep. Time
-                                    </th>
-                                    <td><p class="card-text">@Html.DisplayFor(modelItem => r.PrepTime) min.</p></td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">
-                                        Cook. Time
-                                    </th>
-                                    <td><p class="card-text">@Html.DisplayFor(modelItem => r.CookTime) min.</p></td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">
-                                        Feeds Qty.
-                                    </th>
-                                    <td><p class="card-text">@Html.DisplayFor(modelItem => r.FeedsQty)</p></td>
-                                </tr>
-                                <tr>
-                                    <th colspan="2" class="text-center">Instructions</th>
-                                </tr>
-                                <tr>
-                                    <td colspan="2">
-                                        @if (r.Instructions.Contains("<ul>")) {
-                                            var itemCount = Regex.Matches(r.Instructions, "<li>").Count;
-                                            var parsedInstructions = r.Instructions.Replace("\n", "").Replace("\r", "");
-                                            parsedInstructions = parsedInstructions.Replace("<ul>", "");
-                                            parsedInstructions = parsedInstructions.Replace("</li></ul>", "");
-                                            parsedInstructions = parsedInstructions.Replace("<li>", "");
-                                            parsedInstructions = parsedInstructions.Replace("</li>", ".");
-                                            var listItems = parsedInstructions.Split('.');
-                                            <ul class="overflow-auto" style="height:125px">
-                                                @foreach (var l in listItems) {
-                                                    <li>
-                                                        @l
-                                                    </li>
-                                                }
-                                            </ul>
-                                        } else if (r.Instructions.Contains("<ol>")) {
-                                            var itemCount = Regex.Matches(r.Instructions, "<li>").Count;
-                                            var parsedInstructions = r.Instructions.Replace("\n", "").Replace("\r", "");
-                                            parsedInstructions = parsedInstructions.Replace("<ol>", "");
-                                            parsedInstructions = parsedInstructions.Replace("</li></ol>", "");
-                                            parsedInstructions = parsedInstructions.Replace("<li>", "");
-                                            parsedInstructions = parsedInstructions.Replace("</li>", ".");
-                                            var listItems = parsedInstructions.Split('.');
-                                            <ol class="overflow-auto" style="height:125px">
-                                                @foreach (var l in listItems) {
-                                                    <li>
-                                                        @l
-                                                    </li>
-                                                }
-                                            </ol>
-                                        } else {
-                                            var parsedInstructions = r.Instructions.Replace("<p>", "").Replace("</p>", "");
-                                            <p class="card-text">
-                                                @parsedInstructions
-                                            </p>
-                                        }
-                                    </td>
-                                </tr>
-                            </table>
-                        </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th scope="row">
+                                    Prep. Time
+                                </th>
+                                <td><p class="card-text">@Html.DisplayFor(modelItem => r.PrepTime) min.</p></td>
+                            </tr>
+                            <tr>
+                                <th scope="row">
+                                    Cook. Time
+                                </th>
+                                <td><p class="card-text">@Html.DisplayFor(modelItem => r.CookTime) min.</p></td>
+                            </tr>
+                            <tr>
+                                <th scope="row">
+                                    Feeds Qty.
+                                </th>
+                                <td><p class="card-text">@Html.DisplayFor(modelItem => r.FeedsQty)</p></td>
+                            </tr>
+                            <tr>
+                                <th colspan="2" class="text-center">Instructions</th>
+                            </tr>
+                            <tr>
+                                <td colspan="2">
+                                    @if (r.Instructions.Contains("<ul>")) {
+                                        var itemCount = Regex.Matches(r.Instructions, "<li>").Count;
+                                        var parsedInstructions = r.Instructions.Replace("\n", "").Replace("\r", "");
+                                        parsedInstructions = parsedInstructions.Replace("<ul>", "");
+                                        parsedInstructions = parsedInstructions.Replace("</li></ul>", "");
+                                        parsedInstructions = parsedInstructions.Replace("<li>", "");
+                                        parsedInstructions = parsedInstructions.Replace("</li>", ".");
+                                        var listItems = parsedInstructions.Split('.');
+                                        <ul class="overflow-auto" style="height:125px">
+                                            @foreach (var l in listItems) {
+                                                <li>
+                                                    @l
+                                                </li>
+                                            }
+                                        </ul>
+                                    } else if (r.Instructions.Contains("<ol>")) {
+                                        var itemCount = Regex.Matches(r.Instructions, "<li>").Count;
+                                        var parsedInstructions = r.Instructions.Replace("\n", "").Replace("\r", "");
+                                        parsedInstructions = parsedInstructions.Replace("<ol>", "");
+                                        parsedInstructions = parsedInstructions.Replace("</li></ol>", "");
+                                        parsedInstructions = parsedInstructions.Replace("<li>", "");
+                                        parsedInstructions = parsedInstructions.Replace("</li>", ".");
+                                        var listItems = parsedInstructions.Split('.');
+                                        <ol class="overflow-auto" style="height:125px">
+                                            @foreach (var l in listItems) {
+                                                <li>
+                                                    @l
+                                                </li>
+                                            }
+                                        </ol>
+                                    } else {
+                                        var parsedInstructions = r.Instructions.Replace("<p>", "").Replace("</p>", "");
+                                        <p class="card-text">
+                                            @parsedInstructions
+                                        </p>
+                                    }
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
                 </div>
             </div>
+            reviewCounter++;
         }
+        <input id="reviewCounter" type="hidden" value=@reviewCounter />
     </div>
     <div class="row-12 offset-5" style="justify-content:space-evenly; margin-top: 30px;">
         @{
@@ -195,21 +214,25 @@
         }
 
         <a asp-page="./Index"
-            asp-route-sortOrder="@Model.CurrentSort"
-            asp-route-pageIndex="@(Model.Recipes.PageIndex - 1)"
-            asp-route-currentFilter="@Model.CurrentFilter"
-            class="btn btn-success @prevDisabled">
+           asp-route-sortOrder="@Model.CurrentSort"
+           asp-route-pageIndex="@(Model.Recipes.PageIndex - 1)"
+           asp-route-currentFilter="@Model.CurrentFilter"
+           class="btn btn-success @prevDisabled">
             Previous
         </a>
 
 
         <a asp-page="./Index"
-            asp-route-sortOrder="@Model.CurrentSort"
-            asp-route-pageIndex="@(Model.Recipes.PageIndex + 1)"
-            asp-route-currentFilter="@Model.CurrentFilter"
-            class="btn btn-success @nextDisabled">
+           asp-route-sortOrder="@Model.CurrentSort"
+           asp-route-pageIndex="@(Model.Recipes.PageIndex + 1)"
+           asp-route-currentFilter="@Model.CurrentFilter"
+           class="btn btn-success @nextDisabled">
             Next
         </a>
     </div>
 </div>
 
+@section Scripts{
+
+    <script src="~/js/reviews.js"></script>
+}

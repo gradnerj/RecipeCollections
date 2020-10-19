@@ -11,6 +11,7 @@ using RecipeCollections.Utility;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace RecipeCollections.Pages {
@@ -79,8 +80,18 @@ namespace RecipeCollections.Pages {
             }
         }
   
-        public IActionResult OnPostReview() {
-            return Page();
+        public IActionResult OnPostReview(int val, int recipeid) {
+            var claimsIdentity = (ClaimsIdentity)this.User.Identity;
+            var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
+            var id = claim.Value;
+            var review = new Review() {
+                RecipeId = recipeid,
+                Rating = val,
+                CreatorId = id
+            };
+            _context.Reviews.Add(review);
+            _context.SaveChanges();
+            return Redirect("/Index");
         }
 
         private IQueryable<Models.Recipe> getFilteredSorted(string sortType, string filterBy, IQueryable<Models.Recipe> recipesIQ) {

@@ -62,17 +62,17 @@
                     </div>
                 <div class="form-group">
                     <label asp-for="Recipe.PrepTime" class="control-label"></label>
-                    <input asp-for="Recipe.PrepTime" class="form-control" />
+                    <input asp-for="Recipe.PrepTime" class="form-control"  min="0"/>
                     <span asp-validation-for="Recipe.PrepTime" class="text-danger"></span>
                 </div>
                 <div class="form-group">
                     <label asp-for="Recipe.CookTime" class="control-label"></label>
-                    <input asp-for="Recipe.CookTime" class="form-control" />
+                    <input asp-for="Recipe.CookTime" class="form-control"  min="0"/>
                     <span asp-validation-for="Recipe.CookTime" class="text-danger"></span>
                 </div>
                 <div class="form-group">
                     <label asp-for="Recipe.FeedsQty" class="control-label"></label>
-                    <input asp-for="Recipe.FeedsQty" class="form-control" />
+                    <input asp-for="Recipe.FeedsQty" class="form-control"  min="0"/>
                     <span asp-validation-for="Recipe.FeedsQty" class="text-danger"></span>
                 </div>
                 <div class="form-group row image-row">
