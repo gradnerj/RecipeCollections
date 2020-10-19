@@ -104,16 +104,18 @@
 
                                             }
                                         </div>
-                                        <div>
-                                            <form method="post">
-                                                <span>Rate It!</span>
-                                                <span><button style="color:indianred;" class="btn btn-link p-0" type="submit" asp-page-handler="review" asp-route-val="1" asp-route-recipeid="@r.Id"><i name="@reviewCounter" class="far fa-star rating1"></i></button></span>
-                                                <span><button style="color:indianred;" class="btn btn-link p-0" type="submit" asp-page-handler="review" asp-route-val="2" asp-route-recipeid="@r.Id"><i name="@reviewCounter" class="far fa-star rating2"></i></button></span>
-                                                <span><button style="color:indianred;" class="btn btn-link p-0" type="submit" asp-page-handler="review" asp-route-val="3" asp-route-recipeid="@r.Id"><i name="@reviewCounter" class="far fa-star rating3"></i></button></span>
-                                                <span><button style="color:indianred;" class="btn btn-link p-0" type="submit" asp-page-handler="review" asp-route-val="4" asp-route-recipeid="@r.Id"><i name="@reviewCounter" class="far fa-star rating4"></i></button></span>
-                                                <span><button style="color:indianred;" class="btn btn-link p-0" type="submit" asp-page-handler="review" asp-route-val="5" asp-route-recipeid="@r.Id"><i name="@reviewCounter" class="far fa-star rating5"></i></button></span>
-                                            </form>
-                                        </div>
+                                        @if (User.Identity.IsAuthenticated) {
+                                            <div>
+                                                <form method="post">
+                                                    <span>Rate It!</span>
+                                                    <span><button style="color:indianred;" class="btn btn-link p-0" type="submit" asp-page-handler="review" asp-route-val="1" asp-route-recipeid="@r.Id"><i name="@reviewCounter" class="far fa-star rating1"></i></button></span>
+                                                    <span><button style="color:indianred;" class="btn btn-link p-0" type="submit" asp-page-handler="review" asp-route-val="2" asp-route-recipeid="@r.Id"><i name="@reviewCounter" class="far fa-star rating2"></i></button></span>
+                                                    <span><button style="color:indianred;" class="btn btn-link p-0" type="submit" asp-page-handler="review" asp-route-val="3" asp-route-recipeid="@r.Id"><i name="@reviewCounter" class="far fa-star rating3"></i></button></span>
+                                                    <span><button style="color:indianred;" class="btn btn-link p-0" type="submit" asp-page-handler="review" asp-route-val="4" asp-route-recipeid="@r.Id"><i name="@reviewCounter" class="far fa-star rating4"></i></button></span>
+                                                    <span><button style="color:indianred;" class="btn btn-link p-0" type="submit" asp-page-handler="review" asp-route-val="5" asp-route-recipeid="@r.Id"><i name="@reviewCounter" class="far fa-star rating5"></i></button></span>
+                                                </form>
+                                            </div>
+                                         }
                                     </td>
                                 </tr>
                             </thead>
