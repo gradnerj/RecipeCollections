@@ -79,3 +79,7 @@
 - [x] Allow signed in Creators to ratings and display average rating
 - [x] Add default image for Recipes if none is uploaded
 - [x] Carousel size
+### Key Notes about D4
+* When a user is logged in they can rate any recipe using the stars on that recipes card, 1-5
+* After rating a recipe the page refreshes and shows the current average rating per recipe
+* Prep time, cook time, and servings input arrows no longer allow negative input values
